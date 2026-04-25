@@ -4,10 +4,513 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AsesorIA · Xabi</title>
-<script>
-// Redirect to the correct app
-window.location.href = 'https://claude.ai';
-</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0d0b;
+  --s1: #141512;
+  --s2: #1a1c18;
+  --s3: #22241f;
+  --s4: #2a2d26;
+  --b1: rgba(255,255,255,0.06);
+  --b2: rgba(255,255,255,0.1);
+  --b3: rgba(255,255,255,0.16);
+  --acc: #b8f040;
+  --acc2: rgba(184,240,64,0.15);
+  --acc3: rgba(184,240,64,0.08);
+  --tx: #deded8;
+  --tx2: #888880;
+  --tx3: #4a4a45;
+  --danger: #f06060;
+  --info: #60b8f0;
+  --success: #60d890;
+  --mono: 'DM Mono', monospace;
+  --serif: 'Fraunces', Georgia, serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--tx);font-family:var(--mono);font-size:13px;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{height:52px;background:var(--s1);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 20px;gap:14px;flex-shrink:0;z-index:10}
+.brand{font-family:var(--serif);font-size:19px;font-weight:300;color:var(--acc);letter-spacing:-0.02em}
+.brand i{font-style:italic}
+.brand-sub{font-size:10px;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;margin-top:1px}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;border:1px solid var(--b2);color:var(--tx2);background:var(--s2)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--tx3);flex-shrink:0;transition:all 0.3s}
+.dot.ok{background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.dot.spin{background:var(--info);animation:blink 0.8s infinite}
+.dot.err{background:var(--danger)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.icon-btn{padding:6px 11px;background:var(--s2);border:1px solid var(--b2);border-radius:6px;color:var(--tx2);font-family:var(--mono);font-size:11px;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.icon-btn:hover{border-color:var(--b3);color:var(--tx)}
+
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:280px;flex-shrink:0;background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;overflow:hidden}
+.sb-section{padding:16px;border-bottom:1px solid var(--b1)}
+.sb-label{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px}
+
+/* DRIVE CONNECT */
+.connect-area{display:flex;flex-direction:column;gap:8px}
+.gdrive-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s2);border:1px solid var(--b2);border-radius:8px;cursor:pointer;transition:all 0.2s;font-family:var(--mono);font-size:12px;color:var(--tx);width:100%}
+.gdrive-btn:hover{border-color:var(--acc);color:var(--acc)}
+.gdrive-btn svg{flex-shrink:0}
+.gdrive-btn.connected{border-color:rgba(184,240,64,0.3);background:var(--acc3);color:var(--acc)}
+
+.folder-input-wrap{display:flex;gap:6px}
+.folder-input{flex:1;padding:8px 10px;background:var(--s2);border:1px solid var(--b2);border-radius:6px;color:var(--tx);font-family:var(--mono);font-size:11px;outline:none;transition:border-color 0.2s;min-width:0}
+.folder-input:focus{border-color:rgba(184,240,64,0.4)}
+.folder-input::placeholder{color:var(--tx3)}
+.load-btn{padding:8px 12px;background:var(--acc);color:#0c0d0b;border:none;border-radius:6px;font-family:var(--mono);font-size:11px;font-weight:500;cursor:pointer;white-space:nowrap;transition:opacity 0.2s}
+.load-btn:hover{opacity:0.85}
+.load-btn:disabled{opacity:0.35;cursor:not-allowed}
+
+/* FILES LIST */
+.files-wrap{flex:1;overflow-y:auto;padding:12px}
+.files-wrap::-webkit-scrollbar{width:3px}
+.files-wrap::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px}
+.file-row{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:5px;transition:background 0.1s;cursor:default}
+.file-row:hover{background:var(--s2)}
+.ext-badge{font-size:9px;padding:2px 5px;border-radius:3px;background:var(--s3);color:var(--tx3);text-transform:uppercase;flex-shrink:0;letter-spacing:0.05em}
+.ext-badge.pdf{color:#f06060}
+.ext-badge.doc,.ext-badge.docx{color:var(--info)}
+.ext-badge.xls,.ext-badge.xlsx{color:var(--success)}
+.file-name{font-size:11px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-size{font-size:10px;color:var(--tx3);margin-left:auto;flex-shrink:0}
+
+/* CTX BAR */
+.ctx-bar{padding:10px 16px;border-top:1px solid var(--b1);display:flex;align-items:center;gap:8px;font-size:10px;color:var(--tx3)}
+.ctx-track{flex:1;height:2px;background:var(--s3);border-radius:1px;overflow:hidden}
+.ctx-fill{height:100%;background:var(--acc);border-radius:1px;transition:width 0.5s}
+
+/* SHORTCUTS */
+.shortcuts{padding:12px;border-top:1px solid var(--b1)}
+.shortcut-btn{display:block;width:100%;text-align:left;padding:7px 9px;background:transparent;border:1px solid transparent;border-radius:5px;font-family:var(--mono);font-size:11px;color:var(--tx2);cursor:pointer;transition:all 0.15s;margin-bottom:4px;line-height:1.4}
+.shortcut-btn:hover{background:var(--s2);border-color:var(--b2);color:var(--tx)}
+
+/* CHAT */
+.chat{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.msgs{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:18px}
+.msgs::-webkit-scrollbar{width:3px}
+.msgs::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px}
+
+/* WELCOME */
+.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;padding:40px;gap:14px}
+.welcome-glyph{font-family:var(--serif);font-size:64px;font-weight:300;font-style:italic;color:var(--acc);opacity:0.4;line-height:1}
+.welcome h2{font-family:var(--serif);font-size:28px;font-weight:300;font-style:italic;color:var(--tx);letter-spacing:-0.02em}
+.welcome p{font-size:12px;color:var(--tx2);max-width:300px;line-height:1.7}
+.welcome-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:6px}
+.chip{padding:6px 14px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;font-size:11px;color:var(--tx2);cursor:pointer;transition:all 0.15s;font-family:var(--mono)}
+.chip:hover{border-color:var(--acc);color:var(--acc);background:var(--acc3)}
+
+/* MESSAGES */
+.msg{display:flex;gap:10px;animation:fadeUp 0.25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{flex-direction:row-reverse}
+.ava{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;background:var(--s2);border:1px solid var(--b1)}
+.msg.user .ava{background:var(--acc3);border-color:rgba(184,240,64,0.2)}
+.bubble{max-width:72%;padding:11px 14px;border-radius:10px;line-height:1.65;font-size:13px}
+.msg.assistant .bubble{background:var(--s2);border:1px solid var(--b1);border-radius:2px 10px 10px 10px}
+.msg.user .bubble{background:var(--acc3);border:1px solid rgba(184,240,64,0.2);border-radius:10px 2px 10px 10px}
+.bubble b,.bubble strong{color:var(--acc);font-weight:500}
+.bubble em{color:var(--tx2);font-style:italic}
+.bubble code{background:var(--s3);padding:1px 5px;border-radius:3px;color:var(--acc);font-size:11px}
+.bubble p+p{margin-top:6px}
+.bubble ul,.bubble ol{margin:6px 0 6px 16px}
+.bubble li{margin-bottom:3px}
+.sources{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--b1)}
+.src-tag{font-size:9px;padding:2px 6px;background:var(--s3);border-radius:3px;color:var(--tx3)}
+
+/* THINKING */
+.thinking-dots{display:flex;gap:4px;align-items:center;padding:4px 0}
+.thinking-dots span{width:5px;height:5px;border-radius:50%;background:var(--tx3);animation:blink 1.2s infinite}
+.thinking-dots span:nth-child(2){animation-delay:0.2s}
+.thinking-dots span:nth-child(3){animation-delay:0.4s}
+
+/* INPUT */
+.input-zone{padding:14px 20px 18px;border-top:1px solid var(--b1);background:var(--s1);flex-shrink:0}
+.input-box{display:flex;gap:8px;align-items:flex-end;background:var(--s2);border:1px solid var(--b2);border-radius:10px;padding:9px 11px;transition:border-color 0.2s}
+.input-box:focus-within{border-color:rgba(184,240,64,0.35)}
+#inp{flex:1;background:transparent;border:none;outline:none;color:var(--tx);font-family:var(--mono);font-size:13px;resize:none;line-height:1.5;min-height:20px;max-height:110px}
+#inp::placeholder{color:var(--tx3)}
+.send{width:30px;height:30px;background:var(--acc);border:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 0.2s}
+.send:hover{opacity:0.82}
+.send:disabled{opacity:0.3;cursor:not-allowed}
+.input-hint{margin-top:7px;font-size:10px;color:var(--tx3);text-align:center;letter-spacing:0.02em}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(6px)}
+.overlay.hidden{display:none}
+.modal{background:var(--s1);border:1px solid var(--b2);border-radius:14px;padding:28px;width:460px;max-width:92vw}
+.modal-steps{display:flex;gap:5px;margin-bottom:22px}
+.modal-step{height:2px;flex:1;border-radius:1px;background:var(--s3);transition:background 0.3s}
+.modal-step.done{background:var(--acc)}
+.modal h3{font-family:var(--serif);font-size:21px;font-weight:300;margin-bottom:6px;letter-spacing:-0.01em}
+.modal p{font-size:12px;color:var(--tx2);line-height:1.65;margin-bottom:16px}
+.infobox{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:12px;font-size:11px;color:var(--tx2);line-height:1.65;margin-bottom:14px}
+.infobox code{background:var(--s3);padding:1px 5px;border-radius:3px;color:var(--acc);font-size:10px}
+.minp{width:100%;padding:9px 12px;background:var(--s2);border:1px solid var(--b2);border-radius:7px;color:var(--tx);font-family:var(--mono);font-size:12px;outline:none;transition:border-color 0.2s;margin-bottom:10px}
+.minp:focus{border-color:rgba(184,240,64,0.4)}
+.minp::placeholder{color:var(--tx3)}
+.modal-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.btn-sec{padding:8px 15px;background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--tx2);font-family:var(--mono);font-size:12px;cursor:pointer;transition:all 0.15s}
+.btn-sec:hover{border-color:var(--b2);color:var(--tx)}
+.btn-pri{padding:8px 18px;background:var(--acc);border:none;border-radius:6px;color:#0c0d0b;font-family:var(--mono);font-size:12px;font-weight:500;cursor:pointer;transition:opacity 0.2s}
+.btn-pri:hover{opacity:0.85}
+.file-preview-list{list-style:none;margin:0}
+.file-preview-list li{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--b1);font-size:11px;color:var(--tx2)}
+.file-preview-list li:last-child{border-bottom:none}
+.progress-bar{width:100%;height:3px;background:var(--s3);border-radius:2px;overflow:hidden;margin:10px 0}
+.progress-fill{height:100%;background:var(--acc);border-radius:2px;transition:width 0.4s}
+
+/* AUTH POPUP indicator */
+.auth-notice{background:var(--s2);border:1px solid rgba(184,240,64,0.2);border-radius:8px;padding:12px;font-size:11px;color:var(--tx2);line-height:1.65;margin-bottom:14px}
+.auth-notice strong{color:var(--acc)}
+</style>
 </head>
-<body>Cargando...</body>
+<body>
+
+<!-- SETUP MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-steps">
+      <div class="modal-step done" id="ms1"></div>
+      <div class="modal-step" id="ms2"></div>
+      <div class="modal-step" id="ms3"></div>
+    </div>
+
+    <!-- STEP 1: API KEY -->
+    <div id="s1">
+      <h3>Configura AsesorIA</h3>
+      <p>Introduce tu API Key de Anthropic. Se guarda solo en memoria de esta sesión.</p>
+      <div class="infobox">
+        Consíguela en <code>console.anthropic.com</code> → API Keys → Create Key
+      </div>
+      <input class="minp" id="api-inp" type="password" placeholder="sk-ant-api03-...">
+      <div class="modal-acts">
+        <button class="btn-pri" onclick="step1Next()">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: GOOGLE DRIVE OAUTH -->
+    <div id="s2" style="display:none">
+      <h3>Conecta Google Drive</h3>
+      <p>Haz clic en el botón para autenticarte con tu cuenta de Google y dar acceso de lectura a Drive.</p>
+      <div class="auth-notice">
+        <strong>Cómo funciona:</strong> Se abrirá una ventana de Google. Acepta los permisos. La app solo leerá los archivos de la carpeta que elijas — nunca modificará nada.
+      </div>
+      <button class="gdrive-btn" onclick="startOAuth()" id="oauth-btn" style="margin-bottom:12px">
+        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#4285F4" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#34A853" d="M6.3 14.7l6.6 4.8C14.7 15.8 19 13 24 13c3.1 0 5.8 1.1 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 9.3 6.3 14.7z"/><path fill="#FBBC05" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.3C29.2 35.5 26.7 36 24 36c-5.2 0-9.7-3.3-11.3-8l-6.5 5C9.7 39.6 16.3 44 24 44z"/><path fill="#EA4335" d="M43.6 20.1H42V20H24v8h11.3c-.9 2.4-2.5 4.5-4.6 6l6.2 5.3C36.9 40.4 44 35 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+        Conectar con Google Drive
+      </button>
+      <div id="oauth-status" style="display:none" class="infobox">
+        ✅ Conectado como <strong id="google-email"></strong>
+      </div>
+      <div class="infobox" style="margin-top:8px">
+        <strong style="color:var(--tx)">ID de carpeta Drive</strong> (opcional)<br>
+        Deja vacío para acceder a todo tu Drive, o pega el ID de una carpeta específica:<br>
+        <code>drive.google.com/drive/folders/<b>[ID]</b></code>
+      </div>
+      <input class="minp" id="folder-inp" placeholder="ID de carpeta (opcional — vacío = todo Drive)">
+      <div class="modal-acts">
+        <button class="btn-sec" onclick="useDemo()">Usar demo</button>
+        <button class="btn-pri" id="step2-next" onclick="step2Next()" disabled>Cargar archivos →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: FILES LOADED -->
+    <div id="s3" style="display:none">
+      <h3>¡Listo para trabajar!</h3>
+      <p>Archivos cargados en contexto:</p>
+      <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+      <ul class="file-preview-list" id="file-list"></ul>
+      <div class="modal-acts" style="margin-top:20px">
+        <button class="btn-pri" onclick="closeModal()">Empezar →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div>
+    <div class="brand">Asesor<i>IA</i></div>
+    <div class="brand-sub">segundo cerebro</div>
+  </div>
+  <div class="topbar-right">
+    <div class="pill">
+      <div class="dot" id="dot"></div>
+      <span id="status-txt">sin conectar</span>
+    </div>
+    <button class="icon-btn" onclick="showModal()">⚙ configurar</button>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-section">
+      <div class="sb-label">Drive conectado</div>
+      <div id="drive-info" style="font-size:12px;color:var(--tx2);padding:2px 0">— sin conectar —</div>
+    </div>
+
+    <div class="sb-section" style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:12px">
+      <div class="sb-label">Archivos en contexto</div>
+      <div class="files-wrap" id="files-wrap">
+        <div style="color:var(--tx3);font-size:11px;padding:6px 0">Conecta Drive para ver tus archivos</div>
+      </div>
+    </div>
+
+    <div class="ctx-bar">
+      <span>contexto</span>
+      <div class="ctx-track"><div class="ctx-fill" id="ctx-fill" style="width:0%"></div></div>
+      <span id="ctx-pct">0%</span>
+    </div>
+
+    <div class="shortcuts">
+      <div class="sb-label">accesos rápidos</div>
+      <button class="shortcut-btn" onclick="quick('¿Qué productos de seguro tenemos disponibles ahora mismo y cuáles han cambiado o dejado de estar disponibles recientemente?')">📋 Productos activos</button>
+      <button class="shortcut-btn" onclick="quick('Prepárame un briefing completo para reunión con cliente nuevo que quiere comprar vivienda en San Sebastián y necesita hipoteca')">🏠 Briefing hipoteca</button>
+      <button class="shortcut-btn" onclick="quick('Genera un email profesional de seguimiento para un cliente que lleva 2 semanas sin responder tras nuestra última reunión')">✉ Email seguimiento</button>
+      <button class="shortcut-btn" onclick="quick('¿Qué productos de inversión o ahorro son más adecuados para un autónomo de 40 años con perfil moderado?')">📈 Propuesta inversión</button>
+      <button class="shortcut-btn" onclick="quick('¿Qué colaboradores tenemos disponibles en San Sebastián para reforma o arquitectura?')">🔨 Colaboradores obra</button>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat">
+    <div class="msgs" id="msgs">
+      <div class="welcome" id="welcome">
+        <div class="welcome-glyph">X</div>
+        <h2>Tu segundo cerebro</h2>
+        <p>Conecta tu carpeta de Google Drive y pregúntame cualquier cosa sobre tu negocio, productos OVB o clientes.</p>
+        <div class="welcome-chips">
+          <span class="chip" onclick="quick('¿Qué seguros de vida tenemos disponibles?')">seguros de vida</span>
+          <span class="chip" onclick="quick('Prepárame para reunión de hipoteca')">reunión hipoteca</span>
+          <span class="chip" onclick="quick('Propuesta para autónomo 35 años')">propuesta autónomo</span>
+          <span class="chip" onclick="quick('¿Qué ha cambiado en el catálogo?')">cambios catálogo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-zone">
+      <div class="input-box">
+        <textarea id="inp" placeholder="Pregunta sobre productos, clientes, reuniones..." rows="1"
+          onkeydown="onKey(event)" oninput="resize(this)"></textarea>
+        <button class="send" id="send-btn" onclick="send()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0c0d0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="input-hint">Claude · tus archivos no salen de tu sesión · <span id="file-count-hint">0 archivos cargados</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────────────
+const CLIENT_ID = '369240685295-k26mupp2t9qip5n1us8moqdtsc8pv1ol.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
+
+// ── STATE ──────────────────────────────────────────────────────────────
+const S = {
+  apiKey: '',
+  accessToken: '',
+  userEmail: '',
+  files: [],
+  messages: [],
+  isDemo: false
+};
+
+const DEMO = [
+  { name:'OVB_Securos_Vida_2024.pdf', mimeType:'pdf', size:'142 KB', content:'CATÁLOGO SEGUROS DE VIDA OVB 2024...' },
+  { name:'OVB_Fondos_Inversion_Q3_2024.pdf', mimeType:'pdf', size:'98 KB', content:'FONDOS DE INVERSIÓN OVB...' },
+  { name:'OVB_Hipotecas_Colaboradores.docx', mimeType:'doc', size:'64 KB', content:'ASESORÍA HIPOTECARI...' },
+  { name:'OVB_Salud_Hogar_2024.pdf', mimeType:'pdf', size:'78 KB', content:'SEGUROS NO VIDA...' }
+];
+
+let oauthPopup = null;
+
+function startOAuth() {
+  const redirectUri = window.location.href.split('?')[0].split('#')[0];
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(CLIENT_ID)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(SCOPES)}&prompt=select_account`;
+  const w = 500, h = 600;
+  const left = window.screenX + (window.outerWidth - w) / 2;
+  const top = window.screenY + (window.outerHeight - h) / 2;
+  oauthPopup = window.open(authUrl, 'GoogleAuth', `width=${w},height=${h},left=${left},top=${top}`);
+  const poll = setInterval(() => {
+    try {
+      if (!oauthPopup || oauthPopup.closed) { clearInterval(poll); return; }
+      const hash = oauthPopup.location.hash;
+      if (hash && hash.includes('access_token')) {
+        clearInterval(poll); oauthPopup.close();
+        const params = new URLSearchParams(hash.slice(1));
+        S.accessToken = params.get('access_token');
+        onOAuthSuccess();
+      }
+    } catch(e) {}
+  }, 500);
+}
+
+async function onOAuthSuccess() {
+  try {
+    const r = await fetch('https://www.googleapis.com/oauth2/v1/userinfo?alt=json', { headers: { Authorization: `Bearer ${S.accessToken}` } });
+    const u = await r.json();
+    S.userEmail = u.email || 'cuenta Google';
+  } catch(e) { S.userEmail = 'cuenta Google'; }
+  document.getElementById('google-email').textContent = S.userEmail;
+  document.getElementById('oauth-status').style.display = 'block';
+  document.getElementById('oauth-btn').classList.add('connected');
+  document.getElementById('oauth-btn').innerHTML = `xǉ Conectado como ${S.userEmail}`;
+  document.getElementById('step2-next').disabled = false;
+}
+
+function step1Next() {
+  const k = document.getElementById('api-inp').value.trim();
+  if (!k.startsWith('sk-')) { document.getElementById('api-inp').style.borderColor = 'var(--danger)'; return; }
+  S.apiKey = k;
+  document.getElementById('s1').style.display = 'none';
+  document.getElementById('s2').style.display = 'block';
+  document.getElementById('ms2').classList.add('done');
+}
+
+async function step2Next() {
+  if (!S.accessToken) { useDemo(); return; }
+  document.getElementById('s2').style.display = 'none';
+  document.getElementById('s3').style.display = 'block';
+  document.getElementById('ms3').classList.add('done');
+  await loadDriveFiles();
+}
+
+afunction useDemo() {
+  S.isDemo = true; S.files = DEMO;
+  document.getElementById('s2').style.display = 'none';
+  document.getElementById('s3').style.display = 'block';
+  document.getElementById('ms3').classList.add('done');
+  document.getElementById('prog').style.width = '100%';
+  document.getElementById('file-list').innerHTML = DEMO.map(f => `<li><span class="ext-badge ${f.mimeType}">${f.mimeType}</span> ${f.name}</li>`).join('');
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.add('hidden');
+  updateSidebar();
+  setStatus('ok', `${S.files.length} archivos · listo`);
+}
+
+function showModal() { document.getElementById('overlay').classList.remove('hidden'); }
+
+function updateSidebar() {
+  document.getElementById('drive-info').textContent = S.isDemo ? '📁 Archivos demo' : S.userEmail ? `📁 ${S.userEmail}` : '📁 Drive';
+  document.getElementById('files-wrap').innerHTML = S.files.map(f => `<div class="file-row"><span class="ext-badge ${f.mimeType}">${f.mimeType}</span><span class="file-name">${f.name}</span></div>`).join('');
+  const pct = Math.min(92, S.files.length * 16);
+  document.getElementById('ctx-fill').style.width = pct + '%';
+  document.getElementById('ctx-pct').textContent = pct + '%';
+  document.getElementById('file-count-hint').textContent = `${S.files.length} archivos cargados`;
+}
+
+function setStatus(type, txt) {
+  document.getElementById('dot').className = 'dot ' + (type === 'ok' ? 'ok' : type === 'spin' ? 'spin' : 'err');
+  document.getElementById('status-txt').textContent = txt;
+}
+
+function quick(t) { document.getElementById('inp').value = t; resize(document.getElementById('inp')); }
+function onKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }
+function resize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 110) + 'px'; }
+function rmWelcome() { document.getElementById('welcome')?.remove(); }
+
+function addMsg(role, html, sources) {
+  rmWelcome();
+  const msgs = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = `msg ${role}`;
+  const srcHtml = sources?.length ? `<div class="sources">${sources.map(s=>`<span class="src-tag">📄 ${s}</span>`).join('')}</div>` : '';
+  d.innerHTML = `<div class="ava">${role === 'user' ? '👤�  : '🧠'}</div><div class="bubble">${html}${srcHtml}</div>`;
+  msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showThinking() {
+  rmWelcome();
+  const msgs = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'msg assistant'; d.id = 'thinking';
+  d.innerHTML = `<div class="ava">🧠</div><div class="bubble"><div class="thinking-dots"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+}
+
+function rmThinking() { document.getElementById('thinking')?.remove(); }
+
+a_sync function send() {
+  const inp = document.getElementById('inp');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  if (!S.apiKey) { showModal(); return; }
+  inp.value = ''; inp.style.height = 'auto';
+  document.getElementById('send-btn').disabled = true;
+  addMsg('user', esc(txt));
+  S.messages.push({ role: 'user', content: txt });
+  showThinking();
+  setStatus('spin', 'pensando...');
+  try {
+    const ctx = S.files.map(f => `### ARCHIVO: ${f.name}\n${f.content}`).join('\n\n---\n\n');
+    const sys = `Eres el asistente de negocio de Xabi, consultor financiero en San Sebastián (OVB) . Responde siempre en español, directo y profesional.\n\nDOCUMENTOS:\n${ctx}`;
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': S.apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, system: sys, messages: S.messages })
+    });
+    const data = await r.json();
+    if (data.error) throw new Error(data.error.message);
+    const reply = data.content[0].text;
+    S.messages.push({ role: 'assistant', content: reply });
+    rmThinking();
+    addMsg('assistant', md(reply), []);
+    setStatus('ok', `${S.files.length} archivos · listo`);
+  } catch(e) {
+    rmThinking();
+    addMsg('assistant', `<span style="color:var(--danger)">⚠ ${esc(e.message)}</span>`);
+    setStatus('err', 'error');
+  }
+  document.getElementById('send-btn').disabled = false;
+}
+
+function esc(s) {&�oeturn s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function md(s) {
+  return esc(s)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/`(.+?)`/g,'<code>$1</code>')
+    .replace(/\n\n/g,'</p><p style="margin-top:6px">')
+    .replace(/^ol -(.+)$/gm,'• $1')
+    .replace(/\n/g,'<br>');
+}
+function getExt(mime) {
+  if (mime.includes('pdf')) return 'pdf';
+  if (mime.includes('spreadsheet')) return 'xlsx';
+  if (mime.includes('document') || mime.includes('text')) return 'doc';
+  return 'txt';
+}
+function formatSize(bytes) {
+  if (!bytes) return '';
+  const b = parseInt(bytes);
+  if (b > 1048576) return (b/1048576).toFixed(1) + ' MB';
+  if (b > 1024) return (b/1024).toFixed(0) + ' KB';
+  return b + ' B';
+}
+(function checkOAuthReturn() {
+  const hash = window.location.hash;
+  if (hash && hash.includes('access_token')) {
+    const params = new URLSearchParams(hash.slice(1));
+    const token = params.get('access_token');
+    if (token) { S.accessToken = token; history.replaceState(null, '', window.location.pathname); onOAuthSuccess(); }
+  }
+})();
+</script>
+</body>
 </html>
