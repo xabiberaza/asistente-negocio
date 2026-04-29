@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mari Carmen</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -81,6 +82,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .ext.doc{background:rgba(91,156,246,0.12);color:var(--sky2);border:1px solid rgba(91,156,246,0.25)}
 .ext.xlsx{background:rgba(63,207,130,0.12);color:#5dd9a0;border:1px solid rgba(63,207,130,0.25)}
 .ext.txt{background:rgba(139,160,192,0.12);color:var(--dim);border:1px solid var(--line)}
+.ext.pptx{background:rgba(210,100,50,0.15);color:#e07840;border:1px solid rgba(210,100,50,0.3)}
 .di-info{flex:1;min-width:0}
 .di-name{font-size:11px;color:var(--white);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .di-sz{font-size:9px;color:var(--mute);margin-top:1px}
@@ -236,7 +238,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
         <div style="font-size:13px;color:var(--dim);font-weight:600">Arrastra archivos o carpetas aquí</div>
         <div style="font-size:10px;color:var(--mute);margin-top:3px">PDF · Word · Excel · TXT — o carpetas completas</div>
       </div>
-      <input type="file" id="mfi" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv" style="display:none">
+      <input type="file" id="mfi" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.ppt,.pptx" style="display:none">
       <input type="file" id="mfi-folder" webkitdirectory multiple style="display:none">
       <div style="display:flex;gap:6px;margin-bottom:8px">
         <button class="fbtn" style="flex:1" onclick="document.getElementById('mfi').click()">📄 Archivos</button>
@@ -288,7 +290,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
         <p>Añadir documentos</p>
         <small>Clic o arrastra aquí</small>
       </div>
-      <input type="file" id="sfi" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv" style="display:none">
+      <input type="file" id="sfi" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.ppt,.pptx" style="display:none">
       <input type="file" id="sfi-folder" webkitdirectory multiple style="display:none">
       <div class="folder-btns">
         <button class="fbtn" onclick="document.getElementById('sfi').click()">📄 Archivos</button>
@@ -359,8 +361,8 @@ var REPO_DOC_LIST = []; // Se carga dinámicamente desde docs/index.json
 
 // ── ESTADO ────────────────────────────────────────────────────────
 var S = {
-  apiKey: '',
-  provider: 'groq',
+  apiKey: 'worker',
+  provider: 'worker',
   docs: [],      // {id,name,content,mimeType,size,isRepo}
   chats: [],     // {id,title,messages,date}
   activeId: null
@@ -469,6 +471,7 @@ function extFromName(name) {
   if (e==='pdf') return 'pdf';
   if (e==='doc'||e==='docx') return 'doc';
   if (e==='xls'||e==='xlsx'||e==='csv') return 'xlsx';
+  if (e==='ppt'||e==='pptx') return 'pptx';
   return 'txt';
 }
 
@@ -495,12 +498,43 @@ function setupDrops() {
 
 function handleFiles(fileList) {
   Array.from(fileList).forEach(function(file) {
-    if (!file.name.match(/\.(pdf|docx?|xlsx?|txt|csv)$/i)) return;
+    if (!file.name.match(/\.(pdf|docx?|xlsx?|txt|csv|pptx?)$/i)) return;
     var existing = S.docs.find(function(d){ return d.name === file.name; });
     var isDup = !!existing;
     var id = 'f' + Date.now() + Math.random().toString(36).slice(2,5);
     var ext = extFromName(file.name);
     var reader = new FileReader();
+    if (ext === 'pptx') {
+      // Leer PPTX como ArrayBuffer para JSZip
+      reader.onload = function(e) {
+        JSZip.loadAsync(e.target.result).then(function(zip) {
+          var slideFiles = [];
+          zip.forEach(function(path, entry) {
+            if (path.match(/^ppt\/slides\/slide[0-9]+\.xml$/)) slideFiles.push({path:path,entry:entry});
+          });
+          slideFiles.sort(function(a,b){
+            return parseInt(a.path.match(/slide(\d+)/)[1]) - parseInt(b.path.match(/slide(\d+)/)[1]);
+          });
+          var promises = slideFiles.map(function(sf,idx) {
+            return sf.entry.async('string').then(function(xml) {
+              var texts = (xml.match(/<a:t[^>]*>([^<]+)<\/a:t>/g)||[]).map(function(m){return m.replace(/<[^>]+>/g,'').trim();}).filter(Boolean);
+              return 'DIAPOSITIVA '+(idx+1)+':\n'+texts.join(' ');
+            });
+          });
+          Promise.all(promises).then(function(slides) {
+            var content = slides.join('\n\n') || '[Sin texto extraíble — convierte a PDF para mejor resultado]';
+            var doc = {id:id,name:file.name,content:content.slice(0,15000),mimeType:'pptx',size:fmtSize(file.size),isDup:isDup,isRepo:false};
+            if (isDup){var idx2=S.docs.findIndex(function(d){return d.name===file.name&&!d.isRepo;});if(idx2>=0)S.docs[idx2]=doc;else S.docs.push(doc);}
+            else S.docs.push(doc);
+            renderDocs();updateCtx();lsSave();
+            var mfl=document.getElementById('mflist');
+            if(mfl){var li=document.createElement('li');li.innerHTML='<span class="ext pptx">pptx</span>'+esc(file.name)+(isDup?'<span style="color:var(--warn);margin-left:6px;font-size:9px">⚠ reemplazado</span>':'')+'<span style="color:var(--success);font-size:9px;margin-left:4px">'+slideFiles.length+' slides</span><span style="margin-left:auto;color:var(--mute);font-size:9px">'+fmtSize(file.size)+'</span>';mfl.appendChild(li);document.getElementById('s2n').disabled=false;}
+          });
+        }).catch(function(err){console.warn('Error PPTX:',err);});
+      };
+      reader.readAsArrayBuffer(file);
+      return;
+    }
     reader.onload = function(e) {
       var content = '';
       if (ext === 'pdf') {
@@ -796,7 +830,7 @@ function extractRefs(reply){
 async function send(){
   var inp=document.getElementById('inp');
   var txt=inp.value.trim(); if(!txt)return;
-  if(!S.apiKey){showMod();return;}
+  if(!S.apiKey && S.provider !== 'worker'){showMod();return;}
   inp.value=''; inp.style.height='auto';
   document.getElementById('sendb').disabled=true;
 
