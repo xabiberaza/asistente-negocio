@@ -19,13 +19,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:13px;display:flex;flex-direction:column}
-
-/* TOPBAR */
 .topbar{height:56px;background:var(--bg2);border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 18px;gap:12px;flex-shrink:0;position:relative}
 .topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:0.4}
 .mc-id{display:flex;align-items:center;gap:10px}
 .mc-ava{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1.5px solid rgba(91,156,246,0.4);background:var(--acc2);box-shadow:0 0 12px var(--glow)}
-.mc-ava svg{display:block}
 .mc-title{font-family:var(--serif);font-size:16px;font-style:italic;color:var(--white);line-height:1}
 .mc-sub{font-size:9px;color:var(--mute);letter-spacing:0.12em;text-transform:uppercase;margin-top:3px}
 .tb-r{margin-left:auto;display:flex;align-items:center;gap:8px}
@@ -37,22 +34,15 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 .tb-btn{padding:5px 12px;background:transparent;border:1px solid var(--line);border-radius:4px;color:var(--dim);font-family:var(--sans);font-size:11px;font-weight:500;cursor:pointer;transition:all 0.2s}
 .tb-btn:hover{border-color:var(--sky);color:var(--sky)}
-
-/* LAYOUT */
 .layout{display:flex;flex:1;overflow:hidden}
-
-/* LEFT PANEL */
 .left{width:240px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--line2);display:flex;flex-direction:column;overflow:hidden}
 .tabs{display:flex;border-bottom:1px solid var(--line2);flex-shrink:0}
 .tab{flex:1;padding:11px 6px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--mute);cursor:pointer;transition:all 0.2s;border:none;border-bottom:2px solid transparent;background:transparent;font-family:var(--sans);text-align:center}
 .tab.on{color:var(--sky);border-bottom-color:var(--sky)}
-.tab:hover:not(.on){color:var(--dim)}
 .pane{flex:1;overflow-y:auto;padding:10px}
 .pane::-webkit-scrollbar{width:3px}
 .pane::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
 .pane.hidden{display:none}
-
-/* HISTORY */
 .new-btn{display:flex;align-items:center;gap:8px;width:100%;padding:9px 10px;margin-bottom:10px;background:var(--glow2);border:1px dashed rgba(91,156,246,0.3);border-radius:5px;color:var(--sky);font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s}
 .new-btn:hover{background:var(--glow);border-color:var(--sky)}
 .grp-lbl{font-size:9px;color:var(--mute);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;padding:6px 4px 4px}
@@ -64,8 +54,6 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .ci-del{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:transparent;border:none;color:var(--mute);cursor:pointer;font-size:12px;display:none;border-radius:3px;align-items:center;justify-content:center}
 .ci:hover .ci-del{display:flex}
 .ci-del:hover{background:rgba(224,92,92,0.15);color:var(--danger)}
-
-/* DOCS */
 .drop-z{border:1.5px dashed rgba(91,156,246,0.3);border-radius:6px;padding:18px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:10px;background:var(--bg3)}
 .drop-z:hover,.drop-z.over{border-color:var(--sky);background:var(--glow2)}
 .drop-z p{font-size:12px;color:var(--dim);font-weight:600;margin:6px 0 2px}
@@ -73,51 +61,44 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .folder-btns{display:flex;gap:6px;margin-bottom:10px}
 .fbtn{flex:1;padding:7px 6px;background:var(--bg3);border:1px solid var(--line);border-radius:4px;color:var(--dim);font-family:var(--sans);font-size:10px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center}
 .fbtn:hover{border-color:var(--sky);color:var(--sky)}
-.doc-item{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:5px;margin-bottom:3px;background:var(--bg3);border:1px solid var(--line2);transition:all 0.15s;position:relative}
+.doc-stats{background:var(--bg3);border:1px solid var(--line);border-radius:5px;padding:10px;margin-bottom:10px;font-size:11px}
+.doc-stats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.doc-stats-row:last-child{margin-bottom:0}
+.stat-val{color:var(--sky);font-weight:600}
+.doc-item{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:5px;margin-bottom:3px;background:var(--bg3);border:1px solid var(--line2);transition:all 0.15s}
 .doc-item:hover{border-color:var(--line)}
-.doc-item.dup{border-color:rgba(240,160,64,0.4);background:rgba(240,160,64,0.04)}
 .doc-item.repo{border-color:rgba(63,207,130,0.25);background:rgba(63,207,130,0.04)}
 .ext{font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.04em}
 .ext.pdf{background:rgba(224,92,92,0.15);color:#e07070;border:1px solid rgba(224,92,92,0.3)}
 .ext.doc{background:rgba(91,156,246,0.12);color:var(--sky2);border:1px solid rgba(91,156,246,0.25)}
 .ext.xlsx{background:rgba(63,207,130,0.12);color:#5dd9a0;border:1px solid rgba(63,207,130,0.25)}
-.ext.txt{background:rgba(139,160,192,0.12);color:var(--dim);border:1px solid var(--line)}
 .ext.pptx{background:rgba(210,100,50,0.15);color:#e07840;border:1px solid rgba(210,100,50,0.3)}
+.ext.txt{background:rgba(139,160,192,0.12);color:var(--dim);border:1px solid var(--line)}
 .di-info{flex:1;min-width:0}
 .di-name{font-size:11px;color:var(--white);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .di-sz{font-size:9px;color:var(--mute);margin-top:1px}
 .di-badge{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:700;flex-shrink:0}
-.di-badge.dup{background:rgba(240,160,64,0.2);color:var(--warn);border:1px solid rgba(240,160,64,0.3)}
 .di-badge.repo{background:rgba(63,207,130,0.15);color:#5dd9a0;border:1px solid rgba(63,207,130,0.3)}
 .di-del{width:18px;height:18px;background:transparent;border:none;color:var(--mute);cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;transition:all 0.15s}
 .di-del:hover{background:rgba(224,92,92,0.15);color:var(--danger)}
 .di-del:disabled{opacity:0.2;cursor:default}
-
-/* CONTEXT BAR */
-.ctx-wrap{padding:8px 10px;border-top:1px solid var(--line2);flex-shrink:0}
-.ctx-lbl{display:flex;justify-content:space-between;font-size:9px;color:var(--mute);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:5px}
-.ctx-track{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden}
-.ctx-fill{height:100%;background:linear-gradient(90deg,var(--acc2),var(--sky));border-radius:2px;transition:width 0.5s}
+.rag-bar{padding:8px 10px;border-top:1px solid var(--line2);flex-shrink:0}
+.rag-lbl{display:flex;justify-content:space-between;font-size:9px;color:var(--mute);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:5px}
+.rag-info{font-size:10px;color:var(--sky);text-align:center;margin-top:4px}
 .qk-wrap{padding:8px 10px;border-top:1px solid var(--line2);flex-shrink:0}
 .qk{display:block;width:100%;text-align:left;padding:6px 8px;background:transparent;border:1px solid transparent;border-radius:4px;font-family:var(--sans);font-size:10px;font-weight:500;color:var(--dim);cursor:pointer;transition:all 0.15s;margin-bottom:2px;line-height:1.4}
 .qk:hover{background:var(--bg3);border-color:var(--line);color:var(--white)}
-
-/* CHAT AREA */
-.chat{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.chat{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .msgs{flex:1;overflow-y:auto;padding:28px 32px;display:flex;flex-direction:column;gap:22px}
 .msgs::-webkit-scrollbar{width:3px}
 .msgs::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
-
-/* WELCOME */
 .wlc{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:18px;padding:40px}
 .wlc-ava{width:88px;height:88px;border-radius:50%;overflow:hidden;border:2px solid rgba(91,156,246,0.35);box-shadow:0 0 0 6px var(--glow2),0 0 30px var(--glow);background:var(--acc2);flex-shrink:0}
 .wlc h2{font-family:var(--serif);font-size:26px;font-style:italic;color:var(--white);font-weight:400}
-.wlc p{font-size:13px;color:var(--dim);max-width:360px;line-height:1.75}
+.wlc p{font-size:13px;color:var(--dim);max-width:380px;line-height:1.75}
 .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px}
 .chip{padding:6px 14px;background:transparent;border:1px solid var(--line);border-radius:20px;font-size:11px;font-weight:500;color:var(--dim);cursor:pointer;transition:all 0.15s}
 .chip:hover{border-color:var(--sky);color:var(--sky);background:var(--glow2)}
-
-/* MESSAGES */
 .msg{display:flex;gap:12px;animation:up 0.2s ease}
 @keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .msg.user{flex-direction:row-reverse}
@@ -131,22 +112,16 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .bbl em{color:var(--dim);font-style:italic}
 .bbl code{background:var(--bg);padding:1px 5px;border-radius:3px;color:var(--sky);font-size:11px}
 .sign{font-size:10px;color:var(--mute);font-style:italic;margin-top:6px;display:block;font-family:var(--serif)}
-
-/* REFS */
 .refs{display:flex;flex-direction:column;gap:3px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)}
 .ref{display:flex;align-items:center;gap:6px;padding:5px 9px;background:var(--bg3);border:1px solid var(--line);border-radius:4px;cursor:pointer;transition:all 0.15s;font-size:10px;color:var(--dim);text-align:left;font-family:var(--sans);width:100%}
 .ref:hover{border-color:var(--sky);color:var(--sky);background:var(--glow2)}
 .ref-file{font-weight:600;color:var(--sky2);flex-shrink:0}
 .ref-excerpt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
 .ref-arrow{font-size:9px;color:var(--mute);flex-shrink:0}
-
-/* THINKING */
 .dots{display:flex;gap:4px;align-items:center;padding:4px 0}
 .dots span{width:5px;height:5px;border-radius:50%;background:var(--mute);animation:blink 1.2s infinite}
 .dots span:nth-child(2){animation-delay:0.2s}
 .dots span:nth-child(3){animation-delay:0.4s}
-
-/* INPUT */
 .inp-z{padding:12px 24px 16px;border-top:1px solid var(--line2);background:var(--bg2);flex-shrink:0}
 .inp-box{display:flex;gap:8px;align-items:flex-end;background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:10px 12px;transition:all 0.2s}
 .inp-box:focus-within{border-color:rgba(91,156,246,0.5);box-shadow:0 0 0 3px var(--glow2)}
@@ -161,8 +136,6 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .send-b:disabled{opacity:0.3;cursor:not-allowed}
 .inp-hint{margin-top:6px;font-size:10px;color:var(--mute);text-align:center}
 .inp-hint em{color:var(--sky);font-style:italic;font-family:var(--serif)}
-
-/* DOC VIEWER */
 .dv{width:0;flex-shrink:0;background:var(--bg2);border-left:1px solid var(--line2);overflow:hidden;transition:width 0.3s;display:flex;flex-direction:column}
 .dv.open{width:360px}
 .dv-hd{padding:13px 16px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -172,11 +145,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .dv-ref{padding:10px 16px;background:var(--glow2);border-bottom:1px solid var(--line2);font-size:11px;color:var(--sky2);line-height:1.5;flex-shrink:0}
 .dv-ref strong{display:block;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--sky);margin-bottom:4px}
 .dv-body{flex:1;overflow-y:auto;padding:16px;font-size:12px;color:var(--dim);line-height:1.7;white-space:pre-wrap;word-break:break-word}
-.dv-body::-webkit-scrollbar{width:3px}
-.dv-body::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
 .dv-body .hl{background:rgba(91,156,246,0.2);color:var(--sky2);border-radius:2px;padding:0 2px}
-
-/* MODAL */
 .ov{position:fixed;inset:0;background:rgba(5,10,20,0.92);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(12px)}
 .ov.hidden{display:none}
 .modal{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:32px;width:460px;max-width:92vw}
@@ -190,13 +159,6 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .modal h3{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:6px;color:var(--white)}
 .modal p{font-size:12px;color:var(--dim);line-height:1.65;margin-bottom:14px}
 .ibox{background:var(--bg3);border:1px solid var(--line2);border-radius:5px;padding:12px;font-size:11px;color:var(--dim);line-height:1.65;margin-bottom:12px}
-.ibox code{background:var(--bg);padding:1px 5px;border-radius:3px;color:var(--sky);font-size:10px;font-weight:600}
-.pvbtns{display:flex;gap:8px;margin-bottom:12px}
-.pvbtn{flex:1;padding:9px;border-radius:5px;font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;border:1px solid var(--line);background:transparent;color:var(--mute)}
-.pvbtn.on{border:1.5px solid var(--sky);background:var(--glow);color:var(--sky)}
-.minp{width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--line);border-radius:5px;color:var(--white);font-family:var(--sans);font-size:12px;outline:none;transition:all 0.2s;margin-bottom:10px}
-.minp:focus{border-color:var(--sky);box-shadow:0 0 0 3px var(--glow2)}
-.minp::placeholder{color:var(--mute)}
 .macts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 .bsec{padding:9px 16px;background:transparent;border:1px solid var(--line);border-radius:5px;color:var(--dim);font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s}
 .bsec:hover{border-color:var(--dim);color:var(--white)}
@@ -209,7 +171,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 .mfpl li:last-child{border-bottom:none}
 .pbar{width:100%;height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;margin:10px 0}
 .pfill{height:100%;background:linear-gradient(90deg,var(--acc2),var(--sky));border-radius:2px;transition:width 0.4s}
-.save-note{font-size:10px;color:var(--success);text-align:center;margin-top:8px;display:none}
+.idx-progress{font-size:10px;color:var(--sky);text-align:center;margin-top:6px}
 </style>
 </head>
 <body>
@@ -219,24 +181,22 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
   <div class="modal">
     <div class="msteps"><div class="mstep on" id="ms1"></div><div class="mstep" id="ms2"></div><div class="mstep" id="ms3"></div></div>
     <div class="mhd"><div class="mava" id="mava"></div><div><div class="mname">Mari Carmen</div><div class="mrole">Tu asistente personal</div></div></div>
-    <!-- S1 -->
     <div id="s1">
       <h3>Hola, soy Mari Carmen</h3>
       <p>La app está conectada al servidor del equipo. No necesitas ninguna API key — simplemente empieza.</p>
       <div class="ibox" style="border-color:rgba(63,207,130,0.3);background:rgba(63,207,130,0.05)">
         ✅ <strong style="color:#5dd9a0">Conectada al servidor</strong><br>
-        <span style="color:var(--dim)">Tu equipo puede usarla directamente sin configurar nada.</span>
+        <span style="color:var(--dim)">Soporta hasta <strong style="color:var(--sky)">200+ documentos</strong> sin saturación gracias al sistema RAG.</span>
       </div>
       <div class="macts"><button class="bpri" onclick="s1next()">Continuar →</button></div>
     </div>
-    <!-- S2 -->
     <div id="s2" style="display:none">
       <h3>Sube tus documentos</h3>
-      <p>Arrastra archivos o carpetas completas. Se guardarán en este dispositivo — no tendrás que volver a subirlos.</p>
+      <p>Arrastra archivos o carpetas completas. Se indexan automáticamente — puedes subir hasta 200+ documentos.</p>
       <div class="mdropz" id="mdz" onclick="document.getElementById('mfi').click()">
         <div style="font-size:28px;margin-bottom:8px">📂</div>
         <div style="font-size:13px;color:var(--dim);font-weight:600">Arrastra archivos o carpetas aquí</div>
-        <div style="font-size:10px;color:var(--mute);margin-top:3px">PDF · Word · Excel · TXT — o carpetas completas</div>
+        <div style="font-size:10px;color:var(--mute);margin-top:3px">PDF · Word · Excel · TXT · PPTX — o carpetas completas</div>
       </div>
       <input type="file" id="mfi" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.ppt,.pptx" style="display:none">
       <input type="file" id="mfi-folder" webkitdirectory multiple style="display:none">
@@ -245,15 +205,15 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
         <button class="fbtn" style="flex:1" onclick="document.getElementById('mfi-folder').click()">📁 Carpeta completa</button>
       </div>
       <ul class="mfpl" id="mflist"></ul>
+      <div class="idx-progress" id="idx-prog" style="display:none">⚙️ Indexando documentos...</div>
       <div class="macts">
         <button class="bsec" onclick="useDemo()">Demo</button>
         <button class="bpri" id="s2n" onclick="s2next()" disabled>Continuar →</button>
       </div>
     </div>
-    <!-- S3 -->
     <div id="s3" style="display:none">
       <h3>¡Todo listo!</h3>
-      <p>Documentos guardados en este dispositivo. La próxima vez abrirás directamente sin configurar nada.</p>
+      <p>Documentos indexados con RAG — puedes preguntar sobre cualquier contenido sin límite de saturación.</p>
       <div class="pbar"><div class="pfill" id="prog" style="width:0%"></div></div>
       <ul class="mfpl" id="s3list"></ul>
       <div class="macts" style="margin-top:20px"><button class="bpri" onclick="closeMod()">Empezar →</button></div>
@@ -263,27 +223,23 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <div class="mc-id"><div class="mc-ava" id="tbava"></div><div><div class="mc-title">Mari Carmen</div><div class="mc-sub">Asistente personal</div></div></div>
+  <div class="mc-id"><div class="mc-ava" id="tbava"></div><div><div class="mc-title">Mari Carmen</div><div class="mc-sub">Asistente personal · RAG</div></div></div>
   <div class="tb-r">
     <div class="pill"><div class="dot" id="dot"></div><span id="stxt">cargando...</span></div>
     <button class="tb-btn" onclick="showMod()">⚙ Configurar</button>
   </div>
 </div>
 
-<!-- LAYOUT -->
 <div class="layout">
-  <!-- LEFT -->
   <div class="left">
     <div class="tabs">
       <button class="tab on" id="t-hist" onclick="swTab('hist')">Chats</button>
       <button class="tab" id="t-docs" onclick="swTab('docs')">Documentos</button>
     </div>
-    <!-- HISTORY PANE -->
     <div id="p-hist" class="pane">
       <button class="new-btn" onclick="newChat()"><span style="font-size:15px">＋</span> Nueva conversación</button>
       <div id="hist"></div>
     </div>
-    <!-- DOCS PANE -->
     <div id="p-docs" class="pane hidden">
       <div class="drop-z" id="sdz" onclick="document.getElementById('sfi').click()">
         <div style="font-size:22px">📎</div>
@@ -296,14 +252,17 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
         <button class="fbtn" onclick="document.getElementById('sfi').click()">📄 Archivos</button>
         <button class="fbtn" onclick="document.getElementById('sfi-folder').click()">📁 Carpeta</button>
       </div>
+      <div class="doc-stats" id="doc-stats" style="display:none">
+        <div class="doc-stats-row"><span>Documentos</span><span class="stat-val" id="stat-docs">0</span></div>
+        <div class="doc-stats-row"><span>Fragmentos RAG</span><span class="stat-val" id="stat-chunks">0</span></div>
+        <div class="doc-stats-row"><span style="font-size:9px;color:var(--mute)">Solo se envían los más relevantes</span></div>
+      </div>
       <div id="doclist"></div>
     </div>
-    <!-- CTX BAR -->
-    <div class="ctx-wrap">
-      <div class="ctx-lbl"><span>Contexto</span><span id="ctxpct">0%</span></div>
-      <div class="ctx-track"><div class="ctx-fill" id="ctxfill" style="width:0%"></div></div>
+    <div class="rag-bar">
+      <div class="rag-lbl"><span>RAG activo</span><span id="ragpct">0 docs</span></div>
+      <div class="rag-info" id="rag-info">Sin límite de documentos · búsqueda semántica</div>
     </div>
-    <!-- SHORTCUTS -->
     <div class="qk-wrap">
       <button class="qk" onclick="q('¿Qué productos tenemos disponibles y cuáles han cambiado?')">📋 Productos activos</button>
       <button class="qk" onclick="q('Briefing para reunión hipoteca en San Sebastián')">🏠 Briefing hipoteca</button>
@@ -312,7 +271,6 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
     </div>
   </div>
 
-  <!-- CHAT -->
   <div class="chat">
     <div class="msgs" id="msgs"></div>
     <div class="inp-z">
@@ -331,11 +289,10 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
           </svg>
         </button>
       </div>
-      <div class="inp-hint"><em>Mari Carmen</em> · <span id="dochint">0 documentos</span></div>
+      <div class="inp-hint"><em>Mari Carmen</em> · <span id="dochint">0 documentos · RAG activo</span></div>
     </div>
   </div>
 
-  <!-- DOC VIEWER -->
   <div class="dv" id="dv">
     <div class="dv-hd">
       <div class="ext pdf" id="dv-ext">PDF</div>
@@ -351,42 +308,165 @@ body{background:var(--bg);color:var(--white);font-family:var(--sans);font-size:1
 </div>
 
 <script>
-// ── AVATAR ────────────────────────────────────────────────────────
 var AV='<svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="140" fill="#1a3a6e"/><ellipse cx="60" cy="148" rx="52" ry="34" fill="#0d1e3a"/><path d="M48 105 Q60 115 72 105 L74 125 Q60 130 46 125 Z" fill="#d0daea"/><rect x="52" y="95" width="16" height="14" rx="3" fill="#d4a57a"/><ellipse cx="60" cy="65" rx="26" ry="30" fill="#d4a57a"/><ellipse cx="40" cy="70" rx="7" ry="4" fill="#c8925a" opacity="0.25"/><ellipse cx="80" cy="70" rx="7" ry="4" fill="#c8925a" opacity="0.25"/><ellipse cx="47" cy="61" rx="7" ry="4.5" fill="#2a1a0e"/><ellipse cx="73" cy="61" rx="7" ry="4.5" fill="#2a1a0e"/><ellipse cx="47" cy="61" rx="5" ry="3.5" fill="#3d2510"/><ellipse cx="73" cy="61" rx="5" ry="3.5" fill="#3d2510"/><circle cx="47" cy="61" r="2.8" fill="#6b4020"/><circle cx="73" cy="61" r="2.8" fill="#6b4020"/><circle cx="48.5" cy="59.5" r="1.2" fill="rgba(255,255,255,0.75)"/><circle cx="74.5" cy="59.5" r="1.2" fill="rgba(255,255,255,0.75)"/><path d="M40 58 Q47 55 54 58" stroke="#2a1a0e" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M66 58 Q73 55 80 58" stroke="#2a1a0e" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M39 52 Q47 48.5 55 51" stroke="#5a3a20" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M65 51 Q73 48.5 81 52" stroke="#5a3a20" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M57 68 Q60 78 63 68" stroke="#b8804a" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M52 86 Q60 89.5 68 86 Q60 84 52 86 Z" fill="#c07070"/><path d="M50 86 Q60 90 70 86" stroke="#b06060" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="40" rx="28" ry="20" fill="#3d2810"/><path d="M88 42 Q94 55 90 80 Q84 90 80 95 Q82 75 84 60 Z" fill="#3d2810"/><path d="M32 42 Q26 55 30 80 Q36 90 40 95 Q38 75 36 60 Z" fill="#3d2810"/><path d="M34 38 Q32 28 38 24" stroke="#9a8878" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M86 38 Q88 28 82 24" stroke="#9a8878" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M52 26 Q54 20 58 26" stroke="#9a8878" stroke-width="1.8" fill="none" stroke-linecap="round"/><rect x="32" y="52" width="8" height="22" rx="4" fill="#3d2810"/><rect x="80" y="52" width="8" height="22" rx="4" fill="#3d2810"/><ellipse cx="34" cy="64" rx="5" ry="7" fill="#d4a57a"/><ellipse cx="86" cy="64" rx="5" ry="7" fill="#d4a57a"/><circle cx="34" cy="68" r="2.5" fill="#e8e0d0"/><circle cx="86" cy="68" r="2.5" fill="#e8e0d0"/><circle cx="34" cy="68" r="1.5" fill="#f5f0ec"/><circle cx="86" cy="68" r="1.5" fill="#f5f0ec"/></svg>';
 
-// ── REPO DOCS (documentos compartidos en GitHub) ──────────────────
-// Estos ficheros están en el mismo repo — todos los usuarios los ven
-var REPO_DOCS_URL = 'https://xabiberaza.github.io/asistente-negocio/docs/';
-var REPO_DOC_LIST = []; // Se carga dinámicamente desde docs/index.json
+// ── RAG ENGINE ────────────────────────────────────────────────────
+// Sistema de búsqueda semántica ligero sin embeddings externos
+// Usa TF-IDF + BM25 para encontrar los chunks más relevantes
+
+var CHUNK_SIZE = 400;    // chars por chunk
+var CHUNK_OVERLAP = 80;  // solapamiento entre chunks
+var TOP_K = 8;           // chunks a recuperar por consulta
+var MAX_DOCS = 200;      // límite de documentos
+
+var RAG = {
+  chunks: [],   // [{id, docId, docName, text, tokens}]
+  docs: []      // [{id, name, mimeType, size, isRepo, fullContent}]
+};
+
+// Tokenizar texto para búsqueda
+function tokenize(text) {
+  return text.toLowerCase()
+    .replace(/[^a-záéíóúüñ0-9\s]/gi, ' ')
+    .split(/\s+/)
+    .filter(function(t){ return t.length > 2; });
+}
+
+// Crear chunks de un documento
+function chunkDocument(docId, docName, text) {
+  var chunks = [];
+  var i = 0;
+  var idx = 0;
+  while (i < text.length) {
+    var end = Math.min(i + CHUNK_SIZE, text.length);
+    // Intentar cortar en punto o salto de línea
+    if (end < text.length) {
+      var cutAt = text.lastIndexOf('\n', end);
+      if (cutAt > i + CHUNK_SIZE * 0.5) end = cutAt;
+      else {
+        cutAt = text.lastIndexOf('. ', end);
+        if (cutAt > i + CHUNK_SIZE * 0.5) end = cutAt + 1;
+      }
+    }
+    var chunk = text.slice(i, end).trim();
+    if (chunk.length > 50) {
+      chunks.push({
+        id: docId + '_' + idx,
+        docId: docId,
+        docName: docName,
+        text: chunk,
+        tokens: tokenize(chunk)
+      });
+      idx++;
+    }
+    i = Math.max(i + 1, end - CHUNK_OVERLAP);
+  }
+  return chunks;
+}
+
+// BM25 score simplificado
+function bm25Score(queryTokens, chunkTokens) {
+  var k1 = 1.5, b = 0.75;
+  var avgLen = 200;
+  var score = 0;
+  var freqs = {};
+  chunkTokens.forEach(function(t){ freqs[t] = (freqs[t]||0) + 1; });
+  queryTokens.forEach(function(qt) {
+    var tf = freqs[qt] || 0;
+    if (tf === 0) return;
+    var idf = Math.log(1 + (RAG.chunks.length - 1) / (1 + 1));
+    var num = tf * (k1 + 1);
+    var den = tf + k1 * (1 - b + b * chunkTokens.length / avgLen);
+    score += idf * num / den;
+  });
+  return score;
+}
+
+// Buscar los K chunks más relevantes para una query
+function ragSearch(query) {
+  if (RAG.chunks.length === 0) return [];
+  var qTokens = tokenize(query);
+  if (qTokens.length === 0) return [];
+
+  var scored = RAG.chunks.map(function(chunk) {
+    return { chunk: chunk, score: bm25Score(qTokens, chunk.tokens) };
+  });
+
+  scored.sort(function(a, b){ return b.score - a.score; });
+
+  // Tomar top K, asegurando diversidad de documentos
+  var result = [];
+  var seenDocs = {};
+  var maxPerDoc = Math.ceil(TOP_K / 2);
+
+  for (var i = 0; i < scored.length && result.length < TOP_K; i++) {
+    var item = scored[i];
+    if (item.score <= 0) break;
+    var docId = item.chunk.docId;
+    seenDocs[docId] = (seenDocs[docId] || 0) + 1;
+    if (seenDocs[docId] <= maxPerDoc) {
+      result.push(item.chunk);
+    }
+  }
+
+  // Si no hay suficientes resultados con puntuación, rellenar
+  if (result.length < 3 && RAG.chunks.length > 0) {
+    for (var j = 0; j < scored.length && result.length < 5; j++) {
+      if (!result.find(function(r){ return r.id === scored[j].chunk.id; })) {
+        result.push(scored[j].chunk);
+      }
+    }
+  }
+
+  return result;
+}
+
+// Construir contexto RAG para el prompt
+function buildRagContext(query) {
+  var chunks = ragSearch(query);
+  if (chunks.length === 0) return 'Sin documentos cargados.';
+
+  var ctx = '### FRAGMENTOS RELEVANTES ENCONTRADOS (' + chunks.length + ' de ' + RAG.chunks.length + ' total)\n\n';
+  ctx += chunks.map(function(c, i) {
+    return '[' + (i+1) + '] Documento: ' + c.docName + '\n' + c.text;
+  }).join('\n\n---\n\n');
+  return ctx;
+}
 
 // ── ESTADO ────────────────────────────────────────────────────────
 var S = {
   apiKey: 'worker',
   provider: 'worker',
-  docs: [],      // {id,name,content,mimeType,size,isRepo}
-  chats: [],     // {id,title,messages,date}
+  chats: [],
   activeId: null
 };
 
-// ── LOCAL STORAGE ─────────────────────────────────────────────────
-var LS_KEY = 'mc_v4';
+var LS_KEY = 'mc_rag_v1';
+var LS_DOCS_KEY = 'mc_rag_docs_v1';
 
 function lsSave() {
   try {
-    var data = {
+    localStorage.setItem(LS_KEY, JSON.stringify({
       provider: S.provider,
-      docs: S.docs.filter(function(d){return !d.isRepo;}),
       chats: S.chats.map(function(c){
-        return { id:c.id, title:c.title, date:c.date,
-          messages: c.messages.map(function(m){
-            return {role:m.role, content:m.content, htmlContent:m.htmlContent||'', refs:m.refs||[]};
-          })
-        };
+        return {id:c.id,title:c.title,date:c.date,
+          messages:c.messages.map(function(m){return {role:m.role,content:m.content,htmlContent:m.htmlContent||'',refs:m.refs||[]};})};
       }),
       activeId: S.activeId
-    };
-    localStorage.setItem(LS_KEY, JSON.stringify(data));
-  } catch(e) { console.warn('localStorage full:', e); }
+    }));
+  } catch(e) { console.warn('lsSave error:', e); }
+}
+
+function lsSaveDocs() {
+  try {
+    // Guardar docs sin los tokens (se regeneran) para ahorrar espacio
+    var docsToSave = RAG.docs.map(function(d) {
+      return {id:d.id,name:d.name,mimeType:d.mimeType,size:d.size,isRepo:d.isRepo,fullContent:d.fullContent};
+    });
+    localStorage.setItem(LS_DOCS_KEY, JSON.stringify(docsToSave));
+  } catch(e) {
+    console.warn('lsSaveDocs error — docs too large for localStorage, keeping in memory only:', e);
+  }
 }
 
 function lsLoad() {
@@ -394,75 +474,57 @@ function lsLoad() {
     var raw = localStorage.getItem(LS_KEY);
     if (!raw) return false;
     var data = JSON.parse(raw);
-    S.provider = data.provider || 'groq';
-    S.docs = data.docs || [];
+    S.provider = data.provider || 'worker';
     S.chats = data.chats || [];
     S.activeId = data.activeId || null;
+
+    // Cargar docs
+    var rawDocs = localStorage.getItem(LS_DOCS_KEY);
+    if (rawDocs) {
+      var docs = JSON.parse(rawDocs);
+      docs.forEach(function(d) { addDocToRag(d, false); });
+    }
     return true;
   } catch(e) { return false; }
 }
 
-// ── INIT ──────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  ['tbava','mava'].forEach(function(id){ var e=document.getElementById(id);if(e)e.innerHTML=AV; });
-  setupDrops();
-  setupFileInputs();
+// ── DOC MANAGEMENT ────────────────────────────────────────────────
+function addDocToRag(doc, save) {
+  // Eliminar versión anterior si existe
+  RAG.docs = RAG.docs.filter(function(d){ return d.id !== doc.id; });
+  RAG.chunks = RAG.chunks.filter(function(c){ return c.docId !== doc.id; });
 
-  var had = lsLoad();
+  RAG.docs.push(doc);
+  var newChunks = chunkDocument(doc.id, doc.name, doc.fullContent || '');
+  RAG.chunks = RAG.chunks.concat(newChunks);
 
-  // Cargar docs del repo (compartidos)
-  loadRepoDocs();
+  if (save) lsSaveDocs();
+  updateRagUI();
+}
 
-  if (had) {
-    // Sesión previa — mostrar directamente sin modal
-    document.getElementById('ov').classList.add('hidden');
-    if (S.chats.length === 0) newChat();
-    else {
-      if (!S.activeId || !S.chats.find(function(c){return c.id===S.activeId;})) {
-        S.activeId = S.chats[0].id;
-      }
-      renderChat(S.activeId);
-    }
-    renderHistory();
-    renderDocs();
-    updateCtx();
-    setSt('ok', S.docs.length + ' docs · lista');
+function removeDoc(id) {
+  RAG.docs = RAG.docs.filter(function(d){ return d.id !== id; });
+  RAG.chunks = RAG.chunks.filter(function(c){ return c.docId !== id; });
+  lsSaveDocs();
+  updateRagUI();
+  renderDocs();
+}
+
+function updateRagUI() {
+  var n = RAG.docs.length;
+  var c = RAG.chunks.length;
+  document.getElementById('ragpct').textContent = n + ' doc' + (n!==1?'s':'');
+  document.getElementById('rag-info').textContent = c + ' fragmentos · búsqueda semántica activa';
+  document.getElementById('dochint').textContent = n + ' documentos · ' + c + ' fragmentos RAG';
+  var statsEl = document.getElementById('doc-stats');
+  if (n > 0) {
+    statsEl.style.display = '';
+    document.getElementById('stat-docs').textContent = n;
+    document.getElementById('stat-chunks').textContent = c;
   } else {
-    // Primera vez — mostrar modal
-    if (S.provider === 'anthropic') setProv('anthropic');
-    else setProv('groq');
-    if (had && !S.apiKey) {
-      // Tiene datos pero no key — ir a paso 1
-    }
+    statsEl.style.display = 'none';
   }
-  initSpeech();
-});
-
-// ── REPO DOCS ─────────────────────────────────────────────────────
-function loadRepoDocs() {
-  fetch(REPO_DOCS_URL + 'index.json')
-    .then(function(r){ return r.ok ? r.json() : []; })
-    .then(function(list) {
-      REPO_DOC_LIST = list;
-      var pending = list.length;
-      if (pending === 0) return;
-      list.forEach(function(item) {
-        // Skip if already have this repo doc
-        if (S.docs.find(function(d){ return d.isRepo && d.name === item.name; })) {
-          pending--;
-          if (pending === 0) { renderDocs(); updateCtx(); }
-          return;
-        }
-        fetch(REPO_DOCS_URL + item.file)
-          .then(function(r){ return r.ok ? r.text() : ''; })
-          .then(function(content) {
-            S.docs.push({ id:'repo_'+item.name, name:item.name, content:content.slice(0,15000), mimeType:extFromName(item.name), size:item.size||'', isRepo:true });
-            pending--;
-            if (pending === 0) { renderDocs(); updateCtx(); lsSave(); }
-          }).catch(function(){ pending--; if(pending===0){renderDocs();updateCtx();} });
-      });
-    })
-    .catch(function(){}); // No hay docs en el repo aún — silencioso
+  setSt('ok', n + ' docs · lista');
 }
 
 // ── FILE HANDLING ─────────────────────────────────────────────────
@@ -475,66 +537,22 @@ function extFromName(name) {
   return 'txt';
 }
 
-function setupFileInputs() {
-  ['mfi','sfi'].forEach(function(id){
-    var el = document.getElementById(id);
-    if (el) el.addEventListener('change', function(){ handleFiles(this.files); });
-  });
-  ['mfi-folder','sfi-folder'].forEach(function(id){
-    var el = document.getElementById(id);
-    if (el) el.addEventListener('change', function(){ handleFiles(this.files); });
-  });
-}
-
-function setupDrops() {
-  ['mdz','sdz'].forEach(function(id){
-    var dz = document.getElementById(id);
-    if (!dz) return;
-    dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('over');});
-    dz.addEventListener('dragleave',function(){dz.classList.remove('over');});
-    dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('over');handleFiles(e.dataTransfer.files);});
-  });
-}
-
 function handleFiles(fileList) {
+  if (RAG.docs.length >= MAX_DOCS) {
+    alert('Límite de ' + MAX_DOCS + ' documentos alcanzado. Elimina algunos antes de añadir más.');
+    return;
+  }
   Array.from(fileList).forEach(function(file) {
     if (!file.name.match(/\.(pdf|docx?|xlsx?|txt|csv|pptx?)$/i)) return;
-    var existing = S.docs.find(function(d){ return d.name === file.name; });
-    var isDup = !!existing;
-    var id = 'f' + Date.now() + Math.random().toString(36).slice(2,5);
+    if (RAG.docs.length >= MAX_DOCS) return;
     var ext = extFromName(file.name);
+    var id = 'f' + Date.now() + Math.random().toString(36).slice(2,5);
+    var isDup = !!RAG.docs.find(function(d){ return d.name === file.name; });
+    if (isDup) id = RAG.docs.find(function(d){ return d.name === file.name; }).id;
+
+    if (ext === 'pptx') { readPptx(file, id, isDup); return; }
+
     var reader = new FileReader();
-    if (ext === 'pptx') {
-      // Leer PPTX como ArrayBuffer para JSZip
-      reader.onload = function(e) {
-        JSZip.loadAsync(e.target.result).then(function(zip) {
-          var slideFiles = [];
-          zip.forEach(function(path, entry) {
-            if (path.match(/^ppt\/slides\/slide[0-9]+\.xml$/)) slideFiles.push({path:path,entry:entry});
-          });
-          slideFiles.sort(function(a,b){
-            return parseInt(a.path.match(/slide(\d+)/)[1]) - parseInt(b.path.match(/slide(\d+)/)[1]);
-          });
-          var promises = slideFiles.map(function(sf,idx) {
-            return sf.entry.async('string').then(function(xml) {
-              var texts = (xml.match(/<a:t[^>]*>([^<]+)<\/a:t>/g)||[]).map(function(m){return m.replace(/<[^>]+>/g,'').trim();}).filter(Boolean);
-              return 'DIAPOSITIVA '+(idx+1)+':\n'+texts.join(' ');
-            });
-          });
-          Promise.all(promises).then(function(slides) {
-            var content = slides.join('\n\n') || '[Sin texto extraíble — convierte a PDF para mejor resultado]';
-            var doc = {id:id,name:file.name,content:content.slice(0,15000),mimeType:'pptx',size:fmtSize(file.size),isDup:isDup,isRepo:false};
-            if (isDup){var idx2=S.docs.findIndex(function(d){return d.name===file.name&&!d.isRepo;});if(idx2>=0)S.docs[idx2]=doc;else S.docs.push(doc);}
-            else S.docs.push(doc);
-            renderDocs();updateCtx();lsSave();
-            var mfl=document.getElementById('mflist');
-            if(mfl){var li=document.createElement('li');li.innerHTML='<span class="ext pptx">pptx</span>'+esc(file.name)+(isDup?'<span style="color:var(--warn);margin-left:6px;font-size:9px">⚠ reemplazado</span>':'')+'<span style="color:var(--success);font-size:9px;margin-left:4px">'+slideFiles.length+' slides</span><span style="margin-left:auto;color:var(--mute);font-size:9px">'+fmtSize(file.size)+'</span>';mfl.appendChild(li);document.getElementById('s2n').disabled=false;}
-          });
-        }).catch(function(err){console.warn('Error PPTX:',err);});
-      };
-      reader.readAsArrayBuffer(file);
-      return;
-    }
     reader.onload = function(e) {
       var content = '';
       if (ext === 'pdf') {
@@ -544,114 +562,117 @@ function handleFiles(fileList) {
           .replace(/\\n/g,'\n').replace(/\\r/g,'').replace(/\\t/g,' ')
           .replace(/[^\x20-\x7E\n\xC0-\xFF]/g,' ').replace(/\s{3,}/g,'\n').trim();
         if (content.length < 50) content = raw.replace(/[^\x20-\x7E\n]/g,' ').replace(/\s{3,}/g,'\n').trim();
-      } else { content = e.target.result || ''; }
-      var doc = { id:id, name:file.name, content:content.slice(0,15000), mimeType:ext, size:fmtSize(file.size), isDup:isDup, isRepo:false };
-      if (isDup) {
-        // Replace existing non-repo doc or add with dup flag
-        var idx = S.docs.findIndex(function(d){return d.name===file.name&&!d.isRepo;});
-        if (idx >= 0) S.docs[idx] = doc;
-        else S.docs.push(doc);
       } else {
-        S.docs.push(doc);
+        content = e.target.result || '';
       }
-      renderDocs(); updateCtx(); lsSave();
-      // Update modal file list
-      var mfl = document.getElementById('mflist');
-      if (mfl) {
-        var li = document.createElement('li');
-        li.innerHTML = '<span class="ext '+ext+'">'+ext+'</span>'+esc(file.name)+
-          (isDup?'<span style="color:var(--warn);margin-left:6px;font-size:9px">⚠ reemplazado</span>':'')+
-          '<span style="margin-left:auto;color:var(--mute);font-size:9px">'+fmtSize(file.size)+'</span>';
-        mfl.appendChild(li);
-        document.getElementById('s2n').disabled = false;
-      }
+      var doc = {id:id, name:file.name, mimeType:ext, size:fmtSize(file.size), isRepo:false, fullContent:content};
+      addDocToRag(doc, true);
+      renderDocs();
+      addToModalList(file.name, ext, fmtSize(file.size), isDup, null);
+      document.getElementById('s2n').disabled = false;
     };
     if (ext==='pdf') reader.readAsBinaryString(file);
     else reader.readAsText(file,'UTF-8');
   });
 }
 
-function deleteDoc(id) {
-  S.docs = S.docs.filter(function(d){return d.id!==id;});
-  renderDocs(); updateCtx(); lsSave();
+function readPptx(file, id, isDup) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    JSZip.loadAsync(e.target.result).then(function(zip) {
+      var slideFiles = [];
+      zip.forEach(function(path, entry) {
+        if (path.match(/^ppt\/slides\/slide[0-9]+\.xml$/)) slideFiles.push({path:path,entry:entry});
+      });
+      slideFiles.sort(function(a,b){ return parseInt(a.path.match(/slide(\d+)/)[1]) - parseInt(b.path.match(/slide(\d+)/)[1]); });
+      var promises = slideFiles.map(function(sf,idx) {
+        return sf.entry.async('string').then(function(xml) {
+          var texts = (xml.match(/<a:t[^>]*>([^<]+)<\/a:t>/g)||[]).map(function(m){return m.replace(/<[^>]+>/g,'').trim();}).filter(Boolean);
+          return 'DIAPOSITIVA '+(idx+1)+':\n'+texts.join(' ');
+        });
+      });
+      Promise.all(promises).then(function(slides) {
+        var content = slides.join('\n\n') || '[Sin texto extraíble]';
+        var doc = {id:id, name:file.name, mimeType:'pptx', size:fmtSize(file.size), isRepo:false, fullContent:content};
+        addDocToRag(doc, true);
+        renderDocs();
+        addToModalList(file.name, 'pptx', fmtSize(file.size), isDup, slideFiles.length + ' slides');
+        document.getElementById('s2n').disabled = false;
+      });
+    }).catch(function(err){ console.warn('PPTX error:', err); });
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function addToModalList(name, ext, size, isDup, extra) {
+  var mfl = document.getElementById('mflist');
+  if (!mfl) return;
+  var li = document.createElement('li');
+  li.innerHTML = '<span class="ext '+ext+'">'+ext+'</span>'+esc(name)+
+    (isDup ? '<span style="color:var(--warn);margin-left:6px;font-size:9px">⚠ actualizado</span>' : '') +
+    (extra ? '<span style="color:var(--success);font-size:9px;margin-left:4px">'+extra+'</span>' : '') +
+    '<span style="margin-left:auto;color:var(--mute);font-size:9px">'+size+'</span>';
+  mfl.appendChild(li);
 }
 
 function renderDocs() {
   var dl = document.getElementById('doclist');
   if (!dl) return;
-  if (S.docs.length === 0) { dl.innerHTML='<div style="font-size:11px;color:var(--mute);padding:4px">Sin documentos</div>'; return; }
+  if (RAG.docs.length === 0) { dl.innerHTML='<div style="font-size:11px;color:var(--mute);padding:4px">Sin documentos</div>'; return; }
   var html = '';
-  S.docs.forEach(function(d) {
-    var cls = d.isRepo?' repo':d.isDup?' dup':'';
-    var badge = d.isRepo?'<span class="di-badge repo">REPO</span>':d.isDup?'<span class="di-badge dup">DUP</span>':'';
-    html += '<div class="doc-item'+cls+'">' +
+  RAG.docs.forEach(function(d) {
+    html += '<div class="doc-item'+(d.isRepo?' repo':'')+'">' +
       '<div class="ext '+d.mimeType+'">'+d.mimeType+'</div>' +
-      '<div class="di-info"><div class="di-name">'+esc(d.name)+'</div><div class="di-sz">'+d.size+'</div></div>' +
-      badge +
-      '<button class="di-del" onclick="deleteDoc(\''+d.id+'\')" '+(d.isRepo?'disabled title="Documento compartido del equipo"':'')+'>✕</button>' +
+      '<div class="di-info"><div class="di-name">'+esc(d.name)+'</div>' +
+      '<div class="di-sz">'+d.size+'</div></div>' +
+      (d.isRepo ? '<span class="di-badge repo">REPO</span>' : '') +
+      '<button class="di-del" onclick="removeDoc(\''+d.id+'\')" '+(d.isRepo?'disabled title="Documento del equipo"':'')+'>✕</button>' +
       '</div>';
   });
   dl.innerHTML = html;
-  document.getElementById('dochint').textContent = S.docs.length + ' documentos';
 }
 
-function updateCtx() {
-  var pct = Math.min(95, S.docs.length * 12);
-  document.getElementById('ctxfill').style.width = pct+'%';
-  document.getElementById('ctxpct').textContent = pct+'%';
+// REPO docs
+var REPO_URL = 'https://xabiberaza.github.io/asistente-negocio/docs/';
+function loadRepoDocs() {
+  fetch(REPO_URL + 'index.json')
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(list) {
+      list.forEach(function(item) {
+        if (RAG.docs.find(function(d){ return d.isRepo && d.name===item.name; })) return;
+        fetch(REPO_URL + item.file)
+          .then(function(r){ return r.ok ? r.text() : ''; })
+          .then(function(content) {
+            addDocToRag({id:'repo_'+item.name, name:item.name, mimeType:extFromName(item.name), size:item.size||'', isRepo:true, fullContent:content}, false);
+            renderDocs();
+          }).catch(function(){});
+      });
+    }).catch(function(){});
 }
 
 var DEMO_DOCS = [
-  {id:'d1',name:'OVB_Seguros_Vida_2024.pdf',mimeType:'pdf',size:'142 KB',isRepo:false,
-   content:'SEGUROS DE VIDA OVB 2024\n\nVIDA RIESGO TOTAL\n- Capital: 50.000€ a 1.000.000€ | Edad: 18-65 años\n- Prima ej. 35 años no fumador 150.000€: 18€/mes\n\nVIDA AHORRO PLUS\n- Mínimo: 100€/mes | Rentabilidad garantizada: 1,8% TAE 2024\n- Beneficio fiscal: reducción IRPF hasta 1.500€/año\n\nSEGURO DEPENDENCIA: Renta 500€ a 3.000€/mes | Prima 45 años: 42€/mes\n\n⚠ DISCONTINUADO: Vida Riesgo Básico (junio 2024)'},
-  {id:'d2',name:'OVB_Fondos_Q3_2024.pdf',mimeType:'pdf',size:'98 KB',isRepo:false,
-   content:'FONDOS INVERSIÓN OVB Q3 2024\n\nCONSERVADOR EURO: +3,2% | 0,75% comisión | Mínimo 1.000€\nEQUILIBRADO GLOBAL: +8,7% | 1,1% comisión | Mínimo 1.000€\nCRECIMIENTO TECH: +21,3% | 1,5% comisión | Mínimo 2.000€\n\nPLAN PENSIONES: Deducción hasta 1.500€/año\n⚠ ELIMINADO: rescate a los 10 años (reforma 2023)'},
-  {id:'d3',name:'OVB_Hipotecas_Colaboradores.docx',mimeType:'doc',size:'64 KB',isRepo:false,
-   content:'HIPOTECAS Y COLABORADORES DONOSTIA\n\nColaboradores: Mikel Arantzadi (arq, 5%), Ane Urrutia (arq técnico, 300€), Etxe Donostia inmobiliaria (4.200-5.800€/m²)\n\nHipotecas oct 2024:\n- Variable BBVA: Euribor + 0,6%\n- Fija Kutxabank: 3,15% TAE\n- Mixta CaixaBank: 1,9% fija 5 años\n⚠ ING discontinuó hipotecas no clientes (sept 2024)'},
-  {id:'d4',name:'OVB_Salud_Hogar_2024.pdf',mimeType:'pdf',size:'78 KB',isRepo:false,
-   content:'SEGUROS NO VIDA OVB 2024\n\nSALUD (Adeslas): Individual 30a 48€/mes, Pareja 89€/mes, Dental +12€/mes\nHOGAR: Inquilino 12€/mes, Propietario 22€/mes\n\n🆕 NUEVO sept 2024: ACCIDENTES DEPORTIVOS — invalidez 150.000€, 18€/mes'}
+  {id:'d1',name:'OVB_Seguros_Vida_2024.pdf',mimeType:'pdf',size:'142 KB',isRepo:false,fullContent:'SEGUROS DE VIDA OVB 2024\n\nVIDA RIESGO TOTAL\n- Capital: 50.000€ a 1.000.000€ | Edad: 18-65 años\n- Prima ej. 35 años no fumador 150.000€: 18€/mes\n- Cobertura: fallecimiento + invalidez permanente absoluta + doble capital accidente tráfico\n\nVIDA AHORRO PLUS\n- Mínimo: 100€/mes | Rentabilidad garantizada: 1,8% TAE 2024\n- Beneficio fiscal: reducción IRPF hasta 1.500€/año\n- Rescate parcial desde año 2\n\nSEGURO DEPENDENCIA\n- Renta mensual: 500€ a 3.000€/mes\n- Prima ej. 45 años: 42€/mes\n- Cubre dependencia severa y gran dependencia\n\n⚠ DISCONTINUADO: Vida Riesgo Básico (junio 2024) — sustituido por Vida Riesgo Total'},
+  {id:'d2',name:'OVB_Fondos_Q3_2024.pdf',mimeType:'pdf',size:'98 KB',isRepo:false,fullContent:'FONDOS DE INVERSIÓN OVB Q3 2024\n\nFONDO CONSERVADOR EURO\n- Rentabilidad: +3,2% anual\n- Comisión gestión: 0,75%\n- Inversión mínima: 1.000€\n- Perfil: conservador, capital garantizado al 95%\n\nFONDO EQUILIBRADO GLOBAL\n- Rentabilidad: +8,7% anual\n- Comisión: 1,1%\n- Mínimo: 1.000€\n- 60% renta fija / 40% renta variable\n\nFONDO CRECIMIENTO TECNOLOGÍA\n- Rentabilidad: +21,3% anual\n- Comisión: 1,5%\n- Mínimo: 2.000€\n- 100% renta variable, sector tecnología\n\nPLAN DE PENSIONES OVB FUTURO\n- Deducción fiscal hasta 1.500€/año en IRPF\n- Aportación mínima: 50€/mes\n\n⚠ ELIMINADO: opción de rescate a los 10 años (reforma normativa 2023)'},
+  {id:'d3',name:'OVB_Hipotecas_Colaboradores.docx',mimeType:'doc',size:'64 KB',isRepo:false,fullContent:'HIPOTECAS Y RED DE COLABORADORES DONOSTIA\n\nRED DE COLABORADORES:\n- Mikel Arantzadi (Arquitecto) | 5% sobre presupuesto obra | mikel@donostia-arq.com\n- Ane Urrutia (Arquitecto Técnico) | Certificado energético desde 300€\n- Etxe Donostia Inmobiliaria (Ignacio Mujika) | Zonas: Gros, Amara, Antiguo | Precio medio: 4.200-5.800€/m²\n- Reformas Leku (Contratista) | Reformas integrales | 15% dto. clientes OVB\n\nMEJORES HIPOTECAS oct 2024:\n- Variable: BBVA Euribor + 0,6% (TIN actual ~3,7%)\n- Fija: Kutxabank 3,15% TAE — mejor fija del mercado\n- Mixta: CaixaBank 1,9% fija primeros 5 años, luego Euribor + 0,8%\n- Joven (hasta 35 años): Laboral Kutxa 2,9% TAE con aval\n\n⚠ ING discontinuó hipotecas para no clientes en sept 2024'},
+  {id:'d4',name:'OVB_Salud_Hogar_2024.pdf',mimeType:'pdf',size:'78 KB',isRepo:false,fullContent:'SEGUROS NO VIDA OVB 2024\n\nSALUD COMPLETO (Adeslas via OVB)\n- Individual 30 años: 48€/mes\n- Individual 45 años: 72€/mes\n- Pareja 30-35 años: 89€/mes\n- Familia (2 adultos + 2 hijos): 142€/mes\n- Dental incluido en plan Premium: +12€/mes\n- Sin copagos en urgencias ni hospitalizaciones\n\nHOGAR:\n- Inquilino: desde 12€/mes (contenido 30.000€)\n- Propietario: desde 22€/mes (continente + contenido)\n- Descuento 10% si cliente OVB en otro producto\n\n🆕 NUEVO sept 2024: SEGURO ACCIDENTES DEPORTIVOS\n- Invalidez permanente hasta 150.000€\n- Baja laboral deportiva: 30€/día hasta 90 días\n- Prima: 18€/mes\n- Cubre: esquí, padel, ciclismo, running, surf y 40 deportes más'}
 ];
 
 function useDemo() {
   DEMO_DOCS.forEach(function(d){
-    if (!S.docs.find(function(x){return x.name===d.name;})) S.docs.push(d);
+    if (!RAG.docs.find(function(x){return x.id===d.id;})) addDocToRag(d, false);
   });
-  renderDocs(); updateCtx(); lsSave();
-  var mfl = document.getElementById('mflist');
-  if (mfl) {
-    mfl.innerHTML = '';
-    DEMO_DOCS.forEach(function(d){
-      var li=document.createElement('li');
-      li.innerHTML='<span class="ext '+d.mimeType+'">'+d.mimeType+'</span>'+d.name+'<span style="margin-left:auto;color:var(--mute);font-size:9px">'+d.size+'</span>';
-      mfl.appendChild(li);
-    });
-    document.getElementById('s2n').disabled = false;
-  }
+  lsSaveDocs();
+  renderDocs();
+  DEMO_DOCS.forEach(function(d){ addToModalList(d.name, d.mimeType, d.size, false, null); });
+  document.getElementById('s2n').disabled = false;
 }
 
 // ── MODAL ─────────────────────────────────────────────────────────
-function setProv(p) {
-  S.provider = p;
-  document.getElementById('bg').classList.toggle('on', p==='groq');
-  document.getElementById('ba').classList.toggle('on', p==='anthropic');
-  var inp = document.getElementById('kinp');
-  var hint = document.getElementById('khint');
-  if (p==='groq') {
-    inp.placeholder='gsk_...';
-    hint.innerHTML='Consíguela gratis en <code>console.groq.com</code> → API Keys';
-  } else {
-    inp.placeholder='sk-ant-api03-...';
-    hint.innerHTML='Consíguela en <code>console.anthropic.com</code> → API Keys';
-  }
-  lsSave();
-}
-
 function s1next() {
   document.getElementById('s1').style.display='none';
   document.getElementById('s2').style.display='block';
   document.getElementById('ms2').classList.add('on');
 }
-
 function s2next() {
   document.getElementById('s2').style.display='none';
   document.getElementById('s3').style.display='block';
@@ -659,33 +680,27 @@ function s2next() {
   document.getElementById('prog').style.width='100%';
   var sl = document.getElementById('s3list');
   sl.innerHTML='';
-  S.docs.forEach(function(d){
+  RAG.docs.forEach(function(d){
     var li=document.createElement('li');
     li.innerHTML='<span class="ext '+d.mimeType+'">'+d.mimeType+'</span>'+esc(d.name)+'<span style="margin-left:auto;color:var(--mute);font-size:9px">'+d.size+'</span>';
     sl.appendChild(li);
   });
-  if (!S.docs.length) sl.innerHTML='<li style="color:var(--mute)">Sin documentos (añade más en la pestaña Documentos)</li>';
+  if (!RAG.docs.length) sl.innerHTML='<li style="color:var(--mute)">Sin documentos (añade más en la pestaña Documentos)</li>';
 }
-
 function closeMod() {
   document.getElementById('ov').classList.add('hidden');
   if (S.chats.length===0) newChat();
   else if (!S.activeId||!S.chats.find(function(c){return c.id===S.activeId;})) {
     S.activeId=S.chats[0].id; renderChat(S.activeId);
   }
-  renderHistory(); renderDocs(); updateCtx();
-  setSt('ok', S.docs.length+' docs · lista');
+  renderHistory(); renderDocs(); updateRagUI();
 }
-
 function showMod() {
-  // Reset modal to step 1 with current values
   document.getElementById('s1').style.display='block';
   document.getElementById('s2').style.display='none';
   document.getElementById('s3').style.display='none';
   document.getElementById('ms2').classList.remove('on');
   document.getElementById('ms3').classList.remove('on');
-  document.getElementById('kinp').value = S.apiKey;
-  setProv(S.provider);
   document.getElementById('ov').classList.remove('hidden');
 }
 
@@ -699,60 +714,42 @@ function swTab(t) {
 
 // ── CHAT HISTORY ──────────────────────────────────────────────────
 function newChat() {
-  var id = 'c'+Date.now();
+  var id='c'+Date.now();
   S.chats.unshift({id:id,title:'Nueva conversación',messages:[],date:new Date().toISOString()});
-  S.activeId = id;
-  renderChat(id); renderHistory(); lsSave();
+  S.activeId=id; renderChat(id); renderHistory(); lsSave();
 }
-
-function deleteChat(id, ev) {
+function deleteChat(id,ev) {
   ev.stopPropagation();
-  S.chats = S.chats.filter(function(c){return c.id!==id;});
-  if (S.activeId===id) {
-    if (S.chats.length>0) { S.activeId=S.chats[0].id; renderChat(S.activeId); }
-    else newChat();
-  }
+  S.chats=S.chats.filter(function(c){return c.id!==id;});
+  if (S.activeId===id) { if(S.chats.length>0){S.activeId=S.chats[0].id;renderChat(S.activeId);}else newChat(); }
   renderHistory(); lsSave();
 }
-
-function loadChat(id) {
-  S.activeId = id; renderChat(id); renderHistory(); lsSave();
-}
-
+function loadChat(id) { S.activeId=id; renderChat(id); renderHistory(); lsSave(); }
 function renderChat(id) {
-  var chat = S.chats.find(function(c){return c.id===id;});
-  var msgs = document.getElementById('msgs');
+  var chat=S.chats.find(function(c){return c.id===id;});
+  var msgs=document.getElementById('msgs');
   msgs.innerHTML='';
-  if (!chat || chat.messages.length===0) {
-    msgs.innerHTML='<div class="wlc" id="wlc"><div class="wlc-ava">'+AV+'</div><h2>Hola, soy Mari Carmen</h2><p>Tu asistente de negocio. Pregúntame sobre productos, clientes, hipotecas — citaré exactamente de dónde viene cada dato.</p><div class="chips"><span class="chip" onclick="q(\'¿Qué seguros de vida tenemos?\')">Seguros de vida</span><span class="chip" onclick="q(\'Prepárame para reunión hipoteca\')">Reunión hipoteca</span><span class="chip" onclick="q(\'Propuesta autónomo 35 años\')">Propuesta autónomo</span><span class="chip" onclick="q(\'¿Qué ha cambiado en el catálogo?\')">Cambios catálogo</span></div></div>';
+  if (!chat||chat.messages.length===0) {
+    msgs.innerHTML='<div class="wlc" id="wlc"><div class="wlc-ava">'+AV+'</div><h2>Hola, soy Mari Carmen</h2><p>Tu asistente de negocio con búsqueda inteligente. Pregúntame sobre cualquier documento — busco automáticamente los fragmentos más relevantes entre todos tus archivos.</p><div class="chips"><span class="chip" onclick="q(\'¿Qué seguros de vida tenemos?\')">Seguros de vida</span><span class="chip" onclick="q(\'Prepárame para reunión hipoteca\')">Reunión hipoteca</span><span class="chip" onclick="q(\'Propuesta autónomo 35 años\')">Propuesta autónomo</span><span class="chip" onclick="q(\'¿Qué ha cambiado en el catálogo?\')">Cambios catálogo</span></div></div>';
     return;
   }
-  chat.messages.forEach(function(m){
-    if (m.role!=='system') addBubble(m.role, m.htmlContent||esc(m.content), m.refs||[]);
-  });
+  chat.messages.forEach(function(m){ if(m.role!=='system') addBubble(m.role,m.htmlContent||esc(m.content),m.refs||[]); });
 }
-
 function renderHistory() {
-  var hl = document.getElementById('hist');
+  var hl=document.getElementById('hist');
   if (S.chats.length===0){hl.innerHTML='<div style="font-size:11px;color:var(--mute);padding:8px 4px">Sin conversaciones</div>';return;}
-  var today=new Date().toDateString(), html='';
-  var groups={};
+  var today=new Date().toDateString(),html='',groups={};
   S.chats.forEach(function(c){
-    var d=new Date(c.date); var ds=d.toDateString();
+    var d=new Date(c.date),ds=d.toDateString();
     var key=ds===today?'Hoy':d.toLocaleDateString('es-ES',{day:'numeric',month:'short'});
-    if(!groups[key])groups[key]=[];
-    groups[key].push(c);
+    if(!groups[key])groups[key]=[];groups[key].push(c);
   });
   Object.keys(groups).forEach(function(g){
     html+='<div class="grp-lbl">'+g+'</div>';
     groups[g].forEach(function(c){
       var on=c.id===S.activeId?' on':'';
       var prev=c.messages.length>0?esc((c.messages[c.messages.length-1].content||'').slice(0,38)):'Sin mensajes';
-      html+='<div class="ci'+on+'" onclick="loadChat(\''+c.id+'\')">'+
-        '<div class="ci-title">'+esc(c.title)+'</div>'+
-        '<div class="ci-prev">'+prev+'</div>'+
-        '<button class="ci-del" onclick="deleteChat(\''+c.id+'\',event)">✕</button>'+
-        '</div>';
+      html+='<div class="ci'+on+'" onclick="loadChat(\''+c.id+'\')"><div class="ci-title">'+esc(c.title)+'</div><div class="ci-prev">'+prev+'</div><button class="ci-del" onclick="deleteChat(\''+c.id+'\',event)">✕</button></div>';
     });
   });
   hl.innerHTML=html;
@@ -760,51 +757,41 @@ function renderHistory() {
 
 // ── DOC VIEWER ────────────────────────────────────────────────────
 function openDV(docId, refText) {
-  var doc=S.docs.find(function(d){return d.id===docId;});
+  var doc=RAG.docs.find(function(d){return d.id===docId;});
   if (!doc) return;
   document.getElementById('dv-name').textContent=doc.name;
   document.getElementById('dv-ext').textContent=doc.mimeType;
   document.getElementById('dv-ext').className='ext '+doc.mimeType;
-  var rb=document.getElementById('dv-ref'), rt=document.getElementById('dv-reftxt');
-  if (refText){rb.style.display='';rt.textContent=refText;}
-  else rb.style.display='none';
-  var body=document.getElementById('dv-body');
-  var content=esc(doc.content);
-  if (refText){
-    var safe=esc(refText).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    try{content=content.replace(new RegExp('('+safe+')','gi'),'<span class="hl">$1</span>');}catch(e){}
-  }
-  body.innerHTML=content;
+  var rb=document.getElementById('dv-ref'),rt=document.getElementById('dv-reftxt');
+  if(refText){rb.style.display='';rt.textContent=refText;}else rb.style.display='none';
+  var content=esc(doc.fullContent||'');
+  if(refText){try{content=content.replace(new RegExp('('+esc(refText).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<span class="hl">$1</span>');}catch(e){}}
+  document.getElementById('dv-body').innerHTML=content;
   document.getElementById('dv').classList.add('open');
   setTimeout(function(){var h=document.querySelector('.dv-body .hl');if(h)h.scrollIntoView({behavior:'smooth',block:'center'});},300);
 }
 function closeDV(){document.getElementById('dv').classList.remove('open');}
 
-// ── CHAT ──────────────────────────────────────────────────────────
+// ── CHAT SEND ─────────────────────────────────────────────────────
 function q(t){document.getElementById('inp').value=t;rsz(document.getElementById('inp'));}
 function onK(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 function rsz(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
 function rmWlc(){var w=document.getElementById('wlc');if(w)w.remove();}
 
-function addBubble(role,html,refs){
+function addBubble(role,html,refs) {
   rmWlc();
   var msgs=document.getElementById('msgs');
   var d=document.createElement('div'); d.className='msg '+role;
   var ava=role==='assistant'?'<div class="mava">'+AV+'</div>':'<div class="mava">👤</div>';
   var rhtml='';
-  if (refs&&refs.length){
+  if(refs&&refs.length){
     rhtml='<div class="refs">';
     refs.forEach(function(r){
-      rhtml+='<button class="ref" onclick="openDV(\''+r.docId+'\',\''+r.excerpt.replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')">'+
-        '<span style="font-size:11px">📄</span>'+
-        '<span class="ref-file">'+esc(r.docName)+'</span>'+
-        '<span class="ref-excerpt">'+esc(r.excerpt)+'</span>'+
-        '<span class="ref-arrow">Ver →</span></button>';
+      rhtml+='<button class="ref" onclick="openDV(\''+r.docId+'\',\''+r.excerpt.replace(/'/g,"\\'").replace(/"/g,'&quot;')+'\')"><span style="font-size:11px">📄</span><span class="ref-file">'+esc(r.docName)+'</span><span class="ref-excerpt">'+esc(r.excerpt)+'</span><span class="ref-arrow">Ver →</span></button>';
     });
     rhtml+='</div>';
   }
-  var sign=role==='assistant'?'<em class="sign">— Mari Carmen</em>':'';
-  d.innerHTML=ava+'<div class="bbl">'+html+rhtml+sign+'</div>';
+  d.innerHTML=ava+'<div class="bbl">'+html+rhtml+(role==='assistant'?'<em class="sign">— Mari Carmen</em>':'')+'</div>';
   msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
 }
 
@@ -817,20 +804,29 @@ function showThink(){
 }
 function rmThink(){var t=document.getElementById('thk');if(t)t.remove();}
 
-function extractRefs(reply){
-  var refs=[], rx=/\[Fuente:\s*([^,\]]+),\s*"([^"]+)"\]/g, m;
+function extractRefs(reply, relevantChunks) {
+  // Usar los chunks recuperados como referencias directas
+  var refs = [];
+  var seen = {};
+  relevantChunks.forEach(function(chunk) {
+    if (!seen[chunk.docId] && reply.toLowerCase().includes(chunk.text.slice(0,30).toLowerCase())) {
+      seen[chunk.docId] = true;
+      refs.push({docId:chunk.docId, docName:chunk.docName, excerpt:chunk.text.slice(0,80)+'...'});
+    }
+  });
+  // También buscar patrones [Fuente:]
+  var rx=/\[Fuente:\s*([^,\]]+),\s*"([^"]+)"\]/g, m;
   while((m=rx.exec(reply))!==null){
     var fn=m[1].trim(), ex=m[2].trim();
-    var doc=S.docs.find(function(d){return d.name.toLowerCase().includes(fn.toLowerCase())||fn.toLowerCase().includes(d.name.toLowerCase().replace(/\.[^.]+$/,''));});
-    if(doc)refs.push({docId:doc.id,docName:doc.name,excerpt:ex});
+    var doc=RAG.docs.find(function(d){return d.name.toLowerCase().includes(fn.toLowerCase())||fn.toLowerCase().includes(d.name.toLowerCase().replace(/\.[^.]+$/,''));});
+    if(doc&&!seen[doc.id]){seen[doc.id]=true;refs.push({docId:doc.id,docName:doc.name,excerpt:ex});}
   }
-  return refs;
+  return refs.slice(0,5);
 }
 
-async function send(){
+async function send() {
   var inp=document.getElementById('inp');
   var txt=inp.value.trim(); if(!txt)return;
-  if(!S.apiKey && S.provider !== 'worker'){showMod();return;}
   inp.value=''; inp.style.height='auto';
   document.getElementById('sendb').disabled=true;
 
@@ -840,72 +836,40 @@ async function send(){
 
   addBubble('user',esc(txt),[]);
   chat.messages.push({role:'user',content:txt});
-  renderHistory();
-  showThink();
-  setSt('spin','pensando...');
+  renderHistory(); showThink(); setSt('spin','buscando...');
 
-  try{
-    // ── Contexto inteligente: cada doc limitado a 3000 chars, total máx 12000 ──
-    var MAX_DOC_CHARS = 3000;
-    var MAX_CTX_CHARS = 12000;
-    var ctxParts = S.docs.map(function(d){
-      var content = d.content.slice(0, MAX_DOC_CHARS);
-      return '### ARCHIVO: '+d.name+'\n'+content;
-    });
-    var ctx = '';
-    for (var ci = 0; ci < ctxParts.length; ci++) {
-      if ((ctx + ctxParts[ci]).length > MAX_CTX_CHARS) {
-        ctx += '\n\n[... '+( S.docs.length - ci )+' documentos adicionales disponibles pero omitidos por límite de contexto]';
-        break;
-      }
-      ctx += (ci > 0 ? '\n\n---\n\n' : '') + ctxParts[ci];
-    }
+  try {
+    // RAG: buscar fragmentos relevantes
+    var relevantChunks = ragSearch(txt);
+    var ragCtx = buildRagContext(txt);
 
-    var sys='Eres Mari Carmen, asistente de negocio personal de Xabi, asesor financiero en San Sebastián con OVB y BS Consultoría.\n\nPersonalidad: profesional, cercana, directa. Eres Mari Carmen.\n\nDOCUMENTOS:\n'+ctx+'\n\nINSTRUCCIONES:\n- Responde en español, tono profesional cercano\n- Eres Mari Carmen, no "el asistente"\n- Usa **negrita** para cifras clave\n- Sé concisa pero completa\n- Siempre que uses datos de un documento, añade al final citas con este formato exacto:\n  [Fuente: nombre_archivo, "fragmento literal del texto"]\n- Una cita por cada dato relevante\n- Avisa si algo está discontinuado';
+    setSt('spin','pensando...');
 
-    // ── Historial: solo últimos 10 mensajes para no saturar el contexto ──
-    var MAX_HIST = 10;
-    var apiMessages = chat.messages.slice(-MAX_HIST).map(function(m){
-      return {role: m.role, content: m.content};
-    });
+    var sys = 'Eres Mari Carmen, asistente de negocio personal de Xabi, asesor financiero en San Sebastián con OVB y BS Consultoría.\n\nPersonalidad: profesional, cercana, directa. Eres Mari Carmen.\n\nEl sistema RAG ha recuperado los fragmentos más relevantes de ' + RAG.docs.length + ' documentos disponibles:\n\n' + ragCtx + '\n\nINSTRUCCIONES:\n- Responde en español, tono profesional cercano\n- Eres Mari Carmen, no "el asistente"\n- Usa **negrita** para cifras y datos clave\n- Basa tu respuesta en los fragmentos proporcionados\n- Si la información no está en los fragmentos, indícalo claramente\n- Sé concisa pero completa\n- Avisa si algo está discontinuado o ha cambiado';
 
-    // ── Llamada al Worker proxy (la API key está en Cloudflare, no aquí) ──
+    var MAX_HIST = 8;
+    var apiMessages = chat.messages.slice(-MAX_HIST).map(function(m){ return {role:m.role,content:m.content}; });
+
     var WORKER_URL = 'https://mari-carmen-proxy.xabierberaza.workers.dev';
-    var payload = {
-      provider: S.provider,
-      messages: (S.provider === 'groq')
-        ? [{role:'system',content:sys}].concat(apiMessages)
-        : apiMessages,
-    };
-    if (S.provider === 'anthropic') payload.system = sys;
-
     var r = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({provider:'groq', messages:[{role:'system',content:sys}].concat(apiMessages)})
     });
     var data = await r.json();
-    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
-
-    var reply;
-    if (S.provider === 'groq') {
-      reply = data.choices[0].message.content;
-    } else {
-      reply = data.content[0].text;
-    }
+    if(data.error) throw new Error(data.error.message||JSON.stringify(data.error));
+    var reply = data.choices[0].message.content;
 
     chat.messages.push({role:'assistant',content:reply});
-    var refs=extractRefs(reply);
-    var clean=reply.replace(/\[Fuente:[^\]]+\]/g,'').trim();
-    var html=md(clean);
+    var refs = extractRefs(reply, relevantChunks);
+    var clean = reply.replace(/\[Fuente:[^\]]+\]/g,'').trim();
+    var html = md(clean);
     chat.messages[chat.messages.length-1].htmlContent=html;
     chat.messages[chat.messages.length-1].refs=refs;
-    rmThink();
-    addBubble('assistant',html,refs);
-    setSt('ok',S.docs.length+' docs · lista');
-    lsSave();
-    renderHistory();
-  }catch(e){
+    rmThink(); addBubble('assistant',html,refs);
+    setSt('ok',RAG.docs.length+' docs · lista');
+    lsSave(); renderHistory();
+  } catch(e) {
     rmThink();
     addBubble('assistant','<span style="color:var(--danger)">⚠ '+esc(e.message)+'</span>',[]);
     setSt('err','error');
@@ -914,10 +878,7 @@ async function send(){
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────
-function setSt(t,txt){
-  document.getElementById('dot').className='dot '+(t==='ok'?'ok':t==='spin'?'spin':'err');
-  document.getElementById('stxt').textContent=txt;
-}
+function setSt(t,txt){document.getElementById('dot').className='dot '+(t==='ok'?'ok':t==='spin'?'spin':'err');document.getElementById('stxt').textContent=txt;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function md(s){
   return esc(s)
@@ -931,6 +892,30 @@ function md(s){
     .replace(/\n/g,'<br>');
 }
 function fmtSize(b){if(!b)return '';var n=parseInt(b);if(n>1048576)return(n/1048576).toFixed(1)+' MB';if(n>1024)return(n/1024).toFixed(0)+' KB';return n+' B';}
+
+// ── INIT ──────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  ['tbava','mava'].forEach(function(id){var e=document.getElementById(id);if(e)e.innerHTML=AV;});
+  ['mfi','sfi'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('change',function(){handleFiles(this.files);});});
+  ['mfi-folder','sfi-folder'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('change',function(){handleFiles(this.files);});});
+  ['mdz','sdz'].forEach(function(id){
+    var dz=document.getElementById(id); if(!dz)return;
+    dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('over');});
+    dz.addEventListener('dragleave',function(){dz.classList.remove('over');});
+    dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('over');handleFiles(e.dataTransfer.files);});
+  });
+
+  var had = lsLoad();
+  loadRepoDocs();
+
+  if (had) {
+    document.getElementById('ov').classList.add('hidden');
+    if(S.chats.length===0) newChat();
+    else { if(!S.activeId||!S.chats.find(function(c){return c.id===S.activeId;})) S.activeId=S.chats[0].id; renderChat(S.activeId); }
+    renderHistory(); renderDocs(); updateRagUI();
+  }
+  initSpeech();
+});
 
 // ── VOZ ───────────────────────────────────────────────────────────
 var recognition=null,isListening=false;
