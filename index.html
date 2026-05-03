@@ -571,16 +571,17 @@ function showThink(){rmWlc();var msgs=document.getElementById('msgs'),d=document
 function rmThink(){var t=document.getElementById('thk');if(t)t.remove();}
 
 function copyMsg(btn){
-  var bbl=btn.closest('div').querySelector('.bbl');
+  var bbl=btn.closest('.msg').querySelector('.bbl');
   var txt=bbl.innerText.replace('— Mari Carmen','').trim();
   navigator.clipboard.writeText(txt).then(function(){btn.textContent='✓';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copiar';btn.classList.remove('copied');},2000);});
 }
 
 // ── EDIT MODE ─────────────────────────────────────────────
 function editMsg(btn){
-  var wrap=btn.closest('div');
-  var bbl=wrap.querySelector('.bbl');
-  var editor=wrap.querySelector('.bbl-editor');
+  var msgDiv=btn.closest('.msg');
+  var innerDiv=msgDiv.querySelector('.mava + div');
+  var bbl=innerDiv.querySelector('.bbl');
+  var editor=innerDiv.querySelector('.bbl-editor');
   var ta=editor.querySelector('.editor-area');
   // Poblar textarea con texto plano de la burbuja (sin la firma)
   var txt=bbl.innerText.replace(/— Mari Carmen$/,'').trim();
@@ -598,8 +599,8 @@ function editMsg(btn){
 
 function saveEdit(btn){
   var editor=btn.closest('.bbl-editor');
-  var wrap=btn.closest('div');
-  var bbl=wrap.querySelector('.bbl');
+  var innerDiv=btn.closest('.bbl-editor').parentElement;
+  var bbl=innerDiv.querySelector('.bbl');
   var ta=editor.querySelector('.editor-area');
   var newText=ta.value.trim();
   // Actualizar contenido del bubble con texto editado
